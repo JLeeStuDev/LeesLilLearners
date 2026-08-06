@@ -1,0 +1,11 @@
+{
+  "platform": {
+    "apiRuntime": "dotnet-isolated:8.0"
+  },
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    }
+  ]
+}
