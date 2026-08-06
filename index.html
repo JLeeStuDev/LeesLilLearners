@@ -159,6 +159,71 @@
     .grid{gap:4px;padding:10px;}
     .detail .row .k{min-width:90px;}
   }
+
+  /* ---- editable-calendar additions ---- */
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-end;
+    padding:12px 22px;background:#f6f1e2;border-bottom:1px solid var(--line);
+  }
+  .toolbar .spacer{flex:1;}
+  .btn{
+    font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;
+    border:1px solid var(--line);background:var(--paper);color:var(--pine);
+    padding:8px 14px;border-radius:9px;cursor:pointer;
+  }
+  .btn:hover{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);}
+  .btn.primary{background:var(--pine);color:var(--paper);border-color:var(--pine);}
+  .btn.primary:hover{background:var(--pine-dark);}
+  .btn.danger{color:var(--coral);border-color:var(--coral);background:#fff;}
+  input[type=file]{display:none;}
+
+  .day.custom .num::before{content:"\25CF ";font-size:8px;position:relative;top:-2px;}
+  .day.custom.type-event .num::before{color:var(--sky);}
+  .day.custom.type-absence .num::before{color:var(--coral);}
+  .day.custom.type-note .num::before{color:var(--butter);}
+  .day:not(.school){cursor:pointer;}
+  .day:not(.school):hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.10);}
+
+  .custom-item{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:10px 12px;margin-bottom:8px;
+  }
+  .custom-item .cleft{font-size:14px;}
+  .custom-item .ctype{
+    display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.05em;padding:2px 7px;border-radius:12px;color:#fff;margin-right:6px;
+  }
+  .ctype.event{background:var(--sky);}
+  .ctype.absence{background:var(--coral);}
+  .ctype.note{background:var(--butter);color:#3a2c05;}
+  .custom-item .cactions{display:flex;gap:6px;}
+  .custom-item .cactions button{
+    border:none;background:none;cursor:pointer;font-size:13px;color:var(--pine);opacity:.7;
+  }
+  .custom-item .cactions button:hover{opacity:1;}
+  .addBtnRow{margin-top:14px;}
+
+  .modal-overlay{
+    display:none;position:fixed;inset:0;background:rgba(20,25,20,.5);
+    align-items:center;justify-content:center;padding:16px;z-index:50;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--paper);border-radius:16px;max-width:420px;width:100%;
+    padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.35);
+  }
+  .modal h3{font-family:'Fraunces',serif;margin:0 0 14px;}
+  .modal label{display:block;font-size:12px;font-weight:800;color:var(--pine);
+    text-transform:uppercase;letter-spacing:.04em;margin:12px 0 5px;}
+  .modal input[type=text], .modal input[type=date], .modal textarea, .modal select{
+    width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
+    font-family:'Nunito',sans-serif;font-size:14px;background:#fff;
+  }
+  .modal textarea{min-height:70px;resize:vertical;}
+  .modal .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
+  .modal .rowpair{display:flex;gap:10px;}
+  .modal .rowpair > div{flex:1;}
 </style>
 </head>
 <body>
@@ -171,6 +236,9 @@
 
   <div class="panel" style="margin-bottom:20px;">
     <div style="padding:20px 22px;">
+      <div id="statusBanner" style="display:none;background:#fdecea;border:1px solid #f3b8ae;color:#8a2e20;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:700;margin-bottom:14px;">
+        Can't reach the shared calendar right now — showing the last saved copy on this device. New changes will be kept here and marked to sync once it's back.
+      </div>
       <div id="nextup" class="nextup"><div class="tag">Coming up</div></div>
     </div>
   </div>
@@ -186,15 +254,56 @@
       <span><span class="dot" style="background:#fbeae4;"></span>No preschool</span>
       <span><span class="dot" style="background:var(--sky);"></span>Special event (•)</span>
       <span><span class="dot" style="background:var(--butter);"></span>Letter of the week</span>
+      <span><span class="dot" style="background:var(--sky);border-radius:50%;"></span>My event</span>
+      <span><span class="dot" style="background:var(--coral);border-radius:50%;"></span>Absence</span>
+      <span><span class="dot" style="background:var(--butter);border-radius:50%;"></span>Note</span>
+    </div>
+    <div class="toolbar">
+      <button class="btn primary" id="addBtn">+ Add event / absence / note</button>
+      <div class="spacer"></div>
+      <button class="btn" id="exportBtn">Export my items</button>
+      <button class="btn" id="importBtn">Import items</button>
+      <input type="file" id="importFile" accept="application/json">
     </div>
     <div class="grid" id="dowRow"></div>
     <div class="grid" id="calGrid"></div>
     <div class="detail" id="detail">
-      <p class="placeholder">Select a school day above to see what's planned.</p>
+      <p class="placeholder">Select any day above to see what's planned, or add your own event, absence, or note.</p>
     </div>
   </div>
 
-  <footer>Built for our family &mdash; based on the SVBP 2026&ndash;2027 calendar &amp; chapel schedule.</footer>
+  <footer>Built for our family &mdash; based on the SVBP 2026&ndash;2027 calendar &amp; chapel schedule.<br>Your own added items are saved in this browser. Use Export/Import to share them across devices.</footer>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalTitle">Add item</h3>
+    <div class="rowpair">
+      <div>
+        <label for="fDateStart">Start date</label>
+        <input type="date" id="fDateStart">
+      </div>
+      <div>
+        <label for="fDateEnd">End date (optional)</label>
+        <input type="date" id="fDateEnd">
+      </div>
+    </div>
+    <label for="fType">Type</label>
+    <select id="fType">
+      <option value="event">Event</option>
+      <option value="absence">Absence</option>
+      <option value="note">Note / reminder</option>
+    </select>
+    <label for="fTitle">Title</label>
+    <input type="text" id="fTitle" placeholder="e.g. Dentist appointment, Out sick, Bring cupcakes">
+    <label for="fNote">Details (optional)</label>
+    <textarea id="fNote" placeholder="Any extra detail to remember"></textarea>
+    <div class="modal-actions">
+      <button class="btn danger" id="deleteBtn" style="display:none;">Delete</button>
+      <button class="btn" id="cancelBtn">Cancel</button>
+      <button class="btn primary" id="saveBtn">Save</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -268,7 +377,183 @@ function inRange(dateStr,start,end){return dateStr>=start && dateStr<=end;}
 function findWeek(dateStr){return weeks.find(w=>inRange(dateStr,w.start,w.end));}
 function findClosure(dateStr){return closures.find(c=>inRange(dateStr,c.start,c.end));}
 function findEvent(dateStr){return specialEvents.find(e=>inRange(dateStr,e.start,e.end));}
+function findCustom(dateStr){return customEvents.filter(c=>inRange(dateStr,c.start,c.end||c.start));}
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ---------- custom events (shared, via API) ---------- */
+// Same-origin call: works once deployed to Azure Static Web Apps, since the
+// linked Functions API is served under /api on the same domain — no CORS
+// setup needed. If you ever host the API elsewhere, change this to the
+// full API URL, e.g. 'https://your-api.azurewebsites.net'.
+const API_BASE = '';
+const OFFLINE_CACHE_KEY = 'svbp_custom_events_cache_v1';
+let customEvents = [];
+let apiOnline = true;
+
+function cacheLocally(){ try{ localStorage.setItem(OFFLINE_CACHE_KEY, JSON.stringify(customEvents)); }catch(e){} }
+function loadLocalCache(){ try{ return JSON.parse(localStorage.getItem(OFFLINE_CACHE_KEY)) || []; }catch(e){ return []; } }
+function setOnlineStatus(online){
+  apiOnline = online;
+  const banner = document.getElementById('statusBanner');
+  if(!banner) return;
+  banner.style.display = online ? 'none' : 'block';
+}
+
+async function apiGetItems(){
+  const res = await fetch(`${API_BASE}/api/items`);
+  if(!res.ok) throw new Error('API error '+res.status);
+  return res.json();
+}
+async function apiCreateItem(item){
+  const res = await fetch(`${API_BASE}/api/items`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});
+  if(!res.ok) throw new Error('API error '+res.status);
+  return res.json();
+}
+async function apiUpdateItem(id,item){
+  const res = await fetch(`${API_BASE}/api/items/${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});
+  if(!res.ok) throw new Error('API error '+res.status);
+  return res.json();
+}
+async function apiDeleteItem(id){
+  const res = await fetch(`${API_BASE}/api/items/${id}`,{method:'DELETE'});
+  if(!res.ok) throw new Error('API error '+res.status);
+}
+
+async function loadCustomEvents(){
+  try{
+    customEvents = await apiGetItems();
+    cacheLocally();
+    setOnlineStatus(true);
+  }catch(e){
+    customEvents = loadLocalCache();
+    setOnlineStatus(false);
+  }
+  renderCalendar();
+  renderNextUp();
+}
+function uid(){ return 'c_'+Date.now()+'_'+Math.random().toString(36).slice(2,7); }
+
+let editingId = null;
+const modalOverlay = document.getElementById('modalOverlay');
+function openModal(prefillDate, existing){
+  editingId = existing ? existing.id : null;
+  document.getElementById('modalTitle').textContent = existing ? 'Edit item' : 'Add item';
+  document.getElementById('fDateStart').value = existing ? existing.start : (prefillDate||fmt(new Date()));
+  document.getElementById('fDateEnd').value = existing && existing.end ? existing.end : '';
+  document.getElementById('fType').value = existing ? existing.type : 'event';
+  document.getElementById('fTitle').value = existing ? existing.title : '';
+  document.getElementById('fNote').value = existing ? (existing.note||'') : '';
+  document.getElementById('deleteBtn').style.display = existing ? 'inline-block' : 'none';
+  modalOverlay.classList.add('open');
+  document.getElementById('fTitle').focus();
+}
+function closeModal(){ modalOverlay.classList.remove('open'); editingId=null; }
+
+document.getElementById('addBtn').addEventListener('click',()=>openModal(fmt(new Date()), null));
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e)=>{ if(e.target===modalOverlay) closeModal(); });
+
+document.getElementById('saveBtn').addEventListener('click', async ()=>{
+  const start = document.getElementById('fDateStart').value;
+  const end = document.getElementById('fDateEnd').value;
+  const type = document.getElementById('fType').value;
+  const title = document.getElementById('fTitle').value.trim();
+  const note = document.getElementById('fNote').value.trim();
+  if(!start || !title){ alert('Please add at least a date and a title.'); return; }
+  const payload = {start, end: end||null, type, title, note};
+  const saveBtn = document.getElementById('saveBtn');
+  saveBtn.disabled = true; saveBtn.textContent = 'Saving...';
+  try{
+    if(editingId){
+      const updated = await apiUpdateItem(editingId, payload);
+      const idx = customEvents.findIndex(c=>c.id===editingId);
+      if(idx>-1) customEvents[idx]=updated; else customEvents.push(updated);
+    } else {
+      const created = await apiCreateItem(payload);
+      customEvents.push(created);
+    }
+    cacheLocally();
+    setOnlineStatus(true);
+  }catch(e){
+    // Couldn't reach the shared calendar — save locally so nothing is lost,
+    // and flag it so it's obvious this hasn't synced to Lesleigh's view yet.
+    if(editingId){
+      const item = customEvents.find(c=>c.id===editingId);
+      if(item) Object.assign(item,payload);
+    } else {
+      customEvents.push({id:uid(), ...payload, pendingSync:true});
+    }
+    cacheLocally();
+    setOnlineStatus(false);
+  }
+  saveBtn.disabled = false; saveBtn.textContent = 'Save';
+  closeModal();
+  const savedDate = toDate(start);
+  cursor = new Date(savedDate.getFullYear(), savedDate.getMonth(), 1);
+  renderCalendar();
+  renderNextUp();
+  selectDay(start, findCellForDate(start));
+});
+
+document.getElementById('deleteBtn').addEventListener('click', async ()=>{
+  if(!editingId) return;
+  if(!confirm('Delete this item?')) return;
+  try{
+    await apiDeleteItem(editingId);
+    setOnlineStatus(true);
+  }catch(e){
+    setOnlineStatus(false);
+  }
+  customEvents = customEvents.filter(c=>c.id!==editingId);
+  cacheLocally();
+  closeModal();
+  renderCalendar();
+  renderNextUp();
+});
+
+document.getElementById('exportBtn').addEventListener('click',()=>{
+  const blob = new Blob([JSON.stringify(customEvents,null,2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'svbp-calendar-items.json';
+  a.click();
+});
+document.getElementById('importBtn').addEventListener('click',()=>{
+  document.getElementById('importFile').click();
+});
+document.getElementById('importFile').addEventListener('change', async (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async ()=>{
+    try{
+      const incoming = JSON.parse(reader.result);
+      if(!Array.isArray(incoming)) throw new Error('bad format');
+      const existingIds = new Set(customEvents.map(c=>c.id));
+      let added=0, failed=0;
+      for(const item of incoming){
+        if(existingIds.has(item.id)) continue;
+        try{
+          const created = await apiCreateItem({start:item.start,end:item.end||null,type:item.type,title:item.title,note:item.note||''});
+          customEvents.push(created);
+          added++;
+        }catch(err){ failed++; }
+      }
+      cacheLocally();
+      renderCalendar();
+      renderNextUp();
+      alert(added+' item(s) imported to the shared calendar.'+(failed?` ${failed} failed to sync (couldn't reach the API).`:''));
+    }catch(err){
+      alert('Could not read that file \u2014 make sure it\u2019s a JSON file exported from this calendar.');
+    }
+    e.target.value='';
+  };
+  reader.readAsText(file);
+});
+
+function findCellForDate(dateStr){
+  return document.querySelector(`.day[data-date="${dateStr}"]`);
+}
 
 /* ---------- calendar state ---------- */
 const rangeStart = toDate('2026-08-01');
@@ -299,14 +584,17 @@ function renderCalendar(){
     const dow = dateObj.getDay();
     const cell=document.createElement('div');
     cell.className='day';
+    cell.dataset.date=dateStr;
     const wk = findWeek(dateStr);
     const closure = findClosure(dateStr);
     const ev = findEvent(dateStr);
+    const custom = findCustom(dateStr);
     const isWeekday = dow!==0 && dow!==6;
 
     if(closure){ cell.classList.add('closed'); }
     if(ev){ cell.classList.add('special'); }
-    if(wk && isWeekday && !closure){ cell.classList.add('school'); cell.dataset.date=dateStr; }
+    if(wk && isWeekday && !closure){ cell.classList.add('school'); }
+    if(custom.length){ cell.classList.add('custom','type-'+custom[0].type); }
 
     const num=document.createElement('div');num.className='num';num.textContent=d;cell.appendChild(num);
 
@@ -321,12 +609,41 @@ function renderCalendar(){
     } else if(ev){
       const t=document.createElement('span');t.className='tiny';t.textContent=ev.label;cell.appendChild(t);
     }
-
-    if(cell.classList.contains('school')){
-      cell.addEventListener('click',()=>selectDay(dateStr,cell));
+    if(custom.length){
+      const t=document.createElement('span');t.className='tiny';t.textContent=custom.map(c=>c.title).join(', ');cell.appendChild(t);
     }
+
+    cell.addEventListener('click',()=>selectDay(dateStr,cell));
     grid.appendChild(cell);
   }
+}
+
+function customItemsHtml(dateStr){
+  const items = findCustom(dateStr);
+  if(!items.length) return '';
+  return items.map(c=>`
+    <div class="custom-item">
+      <div class="cleft"><span class="ctype ${c.type}">${c.type}</span><b>${c.title}</b>${c.note?`<br><span style="font-size:13px;opacity:.75;">${c.note}</span>`:''}${c.end?`<br><span style="font-size:12px;opacity:.6;">Through ${c.end}</span>`:''}</div>
+      <div class="cactions">
+        <button title="Edit" onclick='editCustomById("${c.id}")'>&#9998;</button>
+        <button title="Delete" onclick='deleteCustomById("${c.id}")'>&#128465;</button>
+      </div>
+    </div>`).join('');
+}
+function editCustomById(id){
+  const item = customEvents.find(c=>c.id===id);
+  if(item) openModal(item.start, item);
+}
+function deleteCustomById(id){
+  if(!confirm('Delete this item?')) return;
+  apiDeleteItem(id).then(()=>setOnlineStatus(true)).catch(()=>setOnlineStatus(false)).finally(()=>{
+    customEvents = customEvents.filter(c=>c.id!==id);
+    cacheLocally();
+    renderCalendar();
+    renderNextUp();
+    const cell = findCellForDate(document.getElementById('detail').dataset.date);
+    if(cell) selectDay(cell.dataset.date, cell);
+  });
 }
 
 function selectDay(dateStr,cellEl){
@@ -334,21 +651,36 @@ function selectDay(dateStr,cellEl){
   if(cellEl) cellEl.classList.add('selected');
   const wk = findWeek(dateStr);
   const ev = findEvent(dateStr);
+  const closure = findClosure(dateStr);
   const detail = document.getElementById('detail');
-  if(!wk){ detail.innerHTML = '<p class="placeholder">No class content for this day.</p>'; return; }
+  detail.dataset.date = dateStr;
   const d = toDate(dateStr);
-  const chapelTag = wk.chapel ? '<span class="chapelflag">Chapel week</span>' : '';
-  detail.innerHTML = `
-    <div class="datebar">${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} &middot; Week theme</div>
-    <h3>${wk.theme} ${chapelTag}</h3>
-    <div class="row"><span class="k">Bible story</span><span>${wk.story}${wk.chapel?` (Chapel: ${new Date(wk.chapel.date+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})})`:''}</span></div>
-    <div class="row"><span class="k">Character trait</span><span>${wk.trait}</span></div>
-    <div class="row"><span class="k">Letter of the week</span><span>${wk.letter}</span></div>
-    <div class="row"><span class="k">Book of the week</span><span>${wk.book}</span></div>
-    <div class="row"><span class="k">Activity</span><span>${wk.activity}</span></div>
-    ${ev?`<div class="row"><span class="k">Special event</span><span>${ev.label}</span></div>`:''}
-    <div class="prepbox"><b>To have ready:</b> ${wk.prep}</div>
-  `;
+  const dateHeader = `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  const addRow = `<div class="addBtnRow"><button class="btn" onclick='openModal("${dateStr}",null)'>+ Add for this day</button></div>`;
+
+  let curriculumHtml = '';
+  if(wk){
+    const chapelTag = wk.chapel ? '<span class="chapelflag">Chapel week</span>' : '';
+    curriculumHtml = `
+      <div class="datebar">${dateHeader} &middot; Week theme</div>
+      <h3>${wk.theme} ${chapelTag}</h3>
+      <div class="row"><span class="k">Bible story</span><span>${wk.story}${wk.chapel?` (Chapel: ${new Date(wk.chapel.date+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})})`:''}</span></div>
+      <div class="row"><span class="k">Character trait</span><span>${wk.trait}</span></div>
+      <div class="row"><span class="k">Letter of the week</span><span>${wk.letter}</span></div>
+      <div class="row"><span class="k">Book of the week</span><span>${wk.book}</span></div>
+      <div class="row"><span class="k">Activity</span><span>${wk.activity}</span></div>
+      ${ev?`<div class="row"><span class="k">Special event</span><span>${ev.label}</span></div>`:''}
+      <div class="prepbox"><b>To have ready:</b> ${wk.prep}</div>
+    `;
+  } else {
+    curriculumHtml = `
+      <div class="datebar">${dateHeader}</div>
+      <h3>${closure ? closure.label : (ev ? ev.label : 'No class content scheduled')}</h3>
+    `;
+  }
+
+  const customHtml = customItemsHtml(dateStr);
+  detail.innerHTML = curriculumHtml + (customHtml ? `<div style="margin-top:16px;"><div class="k" style="font-weight:800;color:var(--pine);margin-bottom:8px;">Your items</div>${customHtml}</div>` : '') + addRow;
 }
 
 document.getElementById('prevBtn').addEventListener('click',()=>{cursor=new Date(cursor.getFullYear(),cursor.getMonth()-1,1);renderCalendar();});
@@ -363,6 +695,10 @@ function renderNextUp(){
   });
   specialEvents.forEach(e=>{
     items.push({date:e.start,title:e.label,note:'Special event coming up \u2014 check for volunteer or supply needs.'});
+  });
+  customEvents.forEach(c=>{
+    const labelType = c.type==='absence' ? 'Absence' : (c.type==='note' ? 'Note' : 'Your event');
+    items.push({date:c.start,title:`${labelType}: ${c.title}`,note:c.note||'Added by you.'});
   });
   const upcoming = items.filter(i=>i.date>=now).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);
   const box = document.getElementById('nextup');
@@ -383,7 +719,7 @@ function renderNextUp(){
 }
 
 renderCalendar();
-renderNextUp();
+loadCustomEvents();
 </script>
 </body>
 </html>
