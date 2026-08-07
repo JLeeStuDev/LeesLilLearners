@@ -34,7 +34,7 @@ public class CalendarItemsFunctions
         results.Sort((a, b) => string.Compare(a.Start, b.Start, StringComparison.Ordinal));
 
         var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteAsJsonAsync(results);
+        await WriteJson(response, results);
         return response;
     }
 
@@ -63,7 +63,7 @@ public class CalendarItemsFunctions
         await _table.AddEntityAsync(entity);
 
         var response = req.CreateResponse(HttpStatusCode.Created);
-        await response.WriteAsJsonAsync(body);
+        await WriteJson(response, body);
         return response;
     }
 
@@ -101,7 +101,7 @@ public class CalendarItemsFunctions
         }
 
         var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteAsJsonAsync(body);
+        await WriteJson(response, body);
         return response;
     }
 
@@ -122,10 +122,19 @@ public class CalendarItemsFunctions
         return req.CreateResponse(HttpStatusCode.NoContent);
     }
 
+    // Writes JSON using our camelCase settings (id, start, title, etc.) instead of
+    // the Functions worker's default serializer, which would output PascalCase
+    // (Id, Start, Title) and silently break the frontend's field lookups.
+    private static async Task WriteJson(HttpResponseData response, object value)
+    {
+        response.Headers.Add("Content-Type", "application/json; charset=utf-8");
+        await response.WriteStringAsync(JsonSerializer.Serialize(value, JsonOpts));
+    }
+
     private static async Task<HttpResponseData> BadRequest(HttpRequestData req, string message)
     {
         var response = req.CreateResponse(HttpStatusCode.BadRequest);
-        await response.WriteAsJsonAsync(new { error = message });
+        await WriteJson(response, new { error = message });
         return response;
     }
 }
