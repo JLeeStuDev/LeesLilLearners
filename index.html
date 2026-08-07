@@ -141,7 +141,7 @@
   .lcell{border-bottom:1px solid var(--line);padding:8px 8px;font-size:12.5px;background:var(--paper);display:flex;align-items:flex-start;gap:5px;position:relative;}
   .lrow.simple .lcell{background:#f4f8fc;}
   .lcell.datecell{cursor:grab;font-weight:800;color:var(--pine);flex-direction:column;align-items:flex-start;gap:0;}
-  .lpToggleBtn{margin-top:4px;border:none;background:var(--card);color:var(--pine);font-size:9.5px;font-weight:800;letter-spacing:.02em;padding:2px 6px;border-radius:8px;cursor:pointer;white-space:nowrap;}
+  .lpToggleBtn{margin-top:4px;border:none;background:var(--card);color:var(--pine);font-size:9.5px;font-weight:800;letter-spacing:.02em;padding:2px 6px;border-radius:8px;cursor:pointer;white-space:normal;max-width:100%;line-height:1.2;text-align:left;}
   .lpToggleBtn:hover{background:var(--pine);color:#fff;}
   .lpToggleBtn.open{background:var(--pine);color:#fff;}
   .lcell.datecell .handle{opacity:.4;font-size:12px;}
@@ -977,7 +977,7 @@ function renderListView(){
 function dateCellHtml(dateStr){
   const d = toDate(dateStr);
   const isOpen = expandedPlanDate === dateStr;
-  return `<span class="handle">\u283F</span><b>${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}</b><button type="button" class="lpToggleBtn${isOpen?' open':''}" onclick='event.stopPropagation();toggleInlinePlan("${dateStr}")'>${isOpen?'\u2212 Lesson Plan':'+ Lesson Plan'}</button>`;
+  return `<span class="handle">\u283F</span><b>${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}</b><button type="button" class="lpToggleBtn${isOpen?' open':''}" title="${isOpen?'Close':'Open'} lesson plan for this day" onclick='event.stopPropagation();toggleInlinePlan("${dateStr}")'>${isOpen?'\u2212 Plan':'+ Plan'}</button>`;
 }
 
 function buildTableRow(r){
