@@ -29,93 +29,39 @@
     font-family:'Nunito',sans-serif;
     min-height:100vh;
   }
-  .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 60px;}
-  header.hero{
-    text-align:center;
-    color:var(--paper);
-    padding:18px 10px 30px;
-  }
-  header.hero .eyebrow{
-    font-weight:800;letter-spacing:.14em;text-transform:uppercase;
-    font-size:12px;color:var(--butter);margin-bottom:8px;
-  }
-  header.hero h1{
-    font-family:'Fraunces',serif;
-    font-weight:700;
-    font-size:clamp(28px,5vw,44px);
-    margin:0 0 8px;
-  }
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 18px 60px;}
+  header.hero{text-align:center;color:var(--paper);padding:18px 10px 30px;}
+  header.hero .eyebrow{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--butter);margin-bottom:8px;}
+  header.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(28px,5vw,44px);margin:0 0 8px;}
   header.hero p{margin:0;opacity:.8;font-size:15px;}
-
-  .panel{
-    background:var(--paper);
-    border-radius:18px;
-    box-shadow:0 18px 40px rgba(0,0,0,.25);
-    overflow:hidden;
-  }
-
-  .nextup{
-    display:flex;gap:16px;align-items:flex-start;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:18px 20px;
-    margin-bottom:22px;
-    position:relative;
-  }
-  .nextup::before{
-    content:"";
-    position:absolute;left:0;top:14px;bottom:14px;width:5px;
-    background:var(--butter);border-radius:4px;
-  }
-  .nextup .tag{
-    font-family:'Fraunces',serif;font-weight:700;font-size:11px;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--coral);
-    margin:0 0 4px;
-  }
+  .panel{background:var(--paper);border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.25);overflow:hidden;}
+  .nextup{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:22px;position:relative;}
+  .nextup::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:5px;background:var(--butter);border-radius:4px;}
+  .nextup .tag{font-family:'Fraunces',serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin:0 0 4px;}
   .nextup h3{margin:0 0 4px;font-family:'Fraunces',serif;font-size:20px;}
-  .nextup .meta{font-size:13px;opacity:.65;margin-bottom:6px;}
   .nextup .note{font-size:14px;line-height:1.45;}
   .nextup-list{display:flex;flex-direction:column;gap:14px;width:100%;}
   .nextup-item{display:flex;gap:14px;align-items:flex-start;}
-  .nextup-item .datebox{
-    flex:0 0 56px;text-align:center;background:var(--pine);color:var(--paper);
-    border-radius:10px;padding:6px 4px;font-family:'Fraunces',serif;
-  }
+  .nextup-item .datebox{flex:0 0 56px;text-align:center;background:var(--pine);color:var(--paper);border-radius:10px;padding:6px 4px;font-family:'Fraunces',serif;}
   .nextup-item .datebox .m{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.8;}
   .nextup-item .datebox .d{display:block;font-size:18px;font-weight:700;}
 
-  .cal-header{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:18px 22px;background:var(--pine);color:var(--paper);
-  }
+  .viewtabs{display:flex;background:var(--pine-dark);}
+  .viewtabs button{flex:1;border:none;background:transparent;color:rgba(255,255,255,.6);font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;letter-spacing:.03em;padding:14px 10px;cursor:pointer;border-bottom:3px solid transparent;}
+  .viewtabs button.active{color:var(--paper);border-bottom-color:var(--butter);background:var(--pine);}
+  .viewtabs button:hover:not(.active){color:var(--paper);}
+
+  .cal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--pine);color:var(--paper);}
   .cal-header h2{margin:0;font-family:'Fraunces',serif;font-size:22px;font-weight:700;}
-  .cal-header button{
-    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
-    color:var(--paper);width:36px;height:36px;border-radius:10px;cursor:pointer;
-    font-size:16px;line-height:1;
-  }
+  .cal-header button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:var(--paper);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:16px;line-height:1;}
   .cal-header button:hover{background:rgba(255,255,255,.22);}
   .cal-header .navgroup{display:flex;gap:8px;align-items:center;}
-
-  .legend{
-    display:flex;flex-wrap:wrap;gap:14px;padding:12px 22px;font-size:12px;
-    background:#f6f1e2;border-bottom:1px solid var(--line);
-  }
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 22px;font-size:12px;background:#f6f1e2;border-bottom:1px solid var(--line);}
   .legend span{display:inline-flex;align-items:center;gap:6px;}
   .dot{width:10px;height:10px;border-radius:3px;display:inline-block;}
-
-  .grid{
-    display:grid;grid-template-columns:repeat(7,1fr);
-    padding:14px;gap:6px;
-  }
-  .dow{text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--pine);padding-bottom:4px;}
-  .day{
-    min-height:78px;border-radius:10px;border:1px solid var(--line);
-    padding:6px 6px 22px;background:var(--card);cursor:default;position:relative;
-    font-size:12px;transition:transform .12s ease, box-shadow .12s ease;
-  }
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);padding:14px;gap:6px;}
+  .dow{text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pine);padding-bottom:4px;}
+  .day{min-height:78px;border-radius:10px;border:1px solid var(--line);padding:6px 6px 22px;background:var(--card);cursor:default;position:relative;font-size:12px;transition:transform .12s ease, box-shadow .12s ease;}
   .day.empty{background:transparent;border:none;}
   .day.school{cursor:pointer;}
   .day.school:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.12);}
@@ -123,107 +69,92 @@
   .day.closed{background:#fbeae4;}
   .day.closed .num{color:var(--coral);}
   .day.special .num::after{content:" •";color:var(--sky);}
-  .day .badge{
-    position:absolute;bottom:6px;right:6px;
-    width:20px;height:20px;border-radius:5px;background:var(--butter);
-    color:#3a2c05;font-family:'Fraunces',serif;font-weight:700;font-size:12px;
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 2px 3px rgba(0,0,0,.2);
-  }
+  .day .badge{position:absolute;bottom:6px;right:6px;width:20px;height:20px;border-radius:5px;background:var(--butter);color:#3a2c05;font-family:'Fraunces',serif;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 3px rgba(0,0,0,.2);}
   .day .star{position:absolute;top:5px;right:6px;font-size:12px;color:var(--sky);}
   .day .tiny{font-size:9.5px;opacity:.7;display:block;margin-top:2px;line-height:1.2;}
   .day.selected{outline:3px solid var(--pine);}
-
-  .detail{
-    border-top:1px solid var(--line);
-    padding:22px;background:var(--paper);
-  }
+  .detail{border-top:1px solid var(--line);padding:22px;background:var(--paper);}
   .detail .placeholder{opacity:.55;font-style:italic;}
   .detail h3{font-family:'Fraunces',serif;margin:0 0 4px;font-size:22px;}
   .detail .datebar{font-size:13px;color:var(--pine);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;}
   .detail .row{display:flex;gap:10px;margin-bottom:10px;font-size:14px;flex-wrap:wrap;}
   .detail .row .k{font-weight:800;color:var(--pine);min-width:110px;}
-  .chapelflag{
-    display:inline-block;background:var(--sky);color:#fff;font-size:11px;
-    font-weight:800;padding:2px 8px;border-radius:20px;margin-left:8px;letter-spacing:.04em;
-  }
-  .prepbox{
-    margin-top:14px;background:#fff7e0;border:1px solid #eed9a0;border-radius:10px;
-    padding:12px 14px;font-size:13.5px;
-  }
+  .chapelflag{display:inline-block;background:var(--sky);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px;margin-left:8px;letter-spacing:.04em;}
+  .movedflag{display:inline-block;background:var(--butter);color:#3a2c05;font-size:10px;font-weight:800;padding:1px 6px;border-radius:20px;margin-left:6px;letter-spacing:.03em;}
+  .prepbox{margin-top:14px;background:#fff7e0;border:1px solid #eed9a0;border-radius:10px;padding:12px 14px;font-size:13.5px;}
   .prepbox b{color:#8a5a00;}
-
   footer{text-align:center;color:rgba(255,255,255,.55);font-size:12px;margin-top:22px;}
-  @media (max-width:640px){
-    .day{min-height:64px;font-size:11px;}
-    .grid{gap:4px;padding:10px;}
-    .detail .row .k{min-width:90px;}
-  }
+  @media (max-width:640px){.day{min-height:64px;font-size:11px;}.grid{gap:4px;padding:10px;}.detail .row .k{min-width:90px;}}
 
-  /* ---- editable-calendar additions ---- */
-  .toolbar{
-    display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-end;
-    padding:12px 22px;background:#f6f1e2;border-bottom:1px solid var(--line);
-  }
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-end;padding:12px 22px;background:#f6f1e2;border-bottom:1px solid var(--line);}
   .toolbar .spacer{flex:1;}
-  .btn{
-    font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;
-    border:1px solid var(--line);background:var(--paper);color:var(--pine);
-    padding:8px 14px;border-radius:9px;cursor:pointer;
-  }
+  .btn{font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;border:1px solid var(--line);background:var(--paper);color:var(--pine);padding:8px 14px;border-radius:9px;cursor:pointer;}
   .btn:hover{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);}
   .btn.primary{background:var(--pine);color:var(--paper);border-color:var(--pine);}
   .btn.primary:hover{background:var(--pine-dark);}
   .btn.danger{color:var(--coral);border-color:var(--coral);background:#fff;}
+  .btn.small{padding:5px 9px;font-size:12px;}
   input[type=file]{display:none;}
-
   .day.custom .num::before{content:"\25CF ";font-size:8px;position:relative;top:-2px;}
   .day.custom.type-event .num::before{color:var(--sky);}
   .day.custom.type-absence .num::before{color:var(--coral);}
   .day.custom.type-note .num::before{color:var(--butter);}
   .day:not(.school){cursor:pointer;}
   .day:not(.school):hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.10);}
-
-  .custom-item{
-    display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
-    background:var(--card);border:1px solid var(--line);border-radius:10px;
-    padding:10px 12px;margin-bottom:8px;
-  }
+  .custom-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;}
   .custom-item .cleft{font-size:14px;}
-  .custom-item .ctype{
-    display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;
-    letter-spacing:.05em;padding:2px 7px;border-radius:12px;color:#fff;margin-right:6px;
-  }
+  .custom-item .ctype{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:12px;color:#fff;margin-right:6px;}
   .ctype.event{background:var(--sky);}
   .ctype.absence{background:var(--coral);}
   .ctype.note{background:var(--butter);color:#3a2c05;}
   .custom-item .cactions{display:flex;gap:6px;}
-  .custom-item .cactions button{
-    border:none;background:none;cursor:pointer;font-size:13px;color:var(--pine);opacity:.7;
-  }
+  .custom-item .cactions button{border:none;background:none;cursor:pointer;font-size:13px;color:var(--pine);opacity:.7;}
   .custom-item .cactions button:hover{opacity:1;}
   .addBtnRow{margin-top:14px;}
-
-  .modal-overlay{
-    display:none;position:fixed;inset:0;background:rgba(20,25,20,.5);
-    align-items:center;justify-content:center;padding:16px;z-index:50;
-  }
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,25,20,.5);align-items:center;justify-content:center;padding:16px;z-index:50;}
   .modal-overlay.open{display:flex;}
-  .modal{
-    background:var(--paper);border-radius:16px;max-width:420px;width:100%;
-    padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.35);
-  }
+  .modal{background:var(--paper);border-radius:16px;max-width:420px;width:100%;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.35);max-height:90vh;overflow-y:auto;}
   .modal h3{font-family:'Fraunces',serif;margin:0 0 14px;}
-  .modal label{display:block;font-size:12px;font-weight:800;color:var(--pine);
-    text-transform:uppercase;letter-spacing:.04em;margin:12px 0 5px;}
-  .modal input[type=text], .modal input[type=date], .modal textarea, .modal select{
-    width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
-    font-family:'Nunito',sans-serif;font-size:14px;background:#fff;
-  }
+  .modal label{display:block;font-size:12px;font-weight:800;color:var(--pine);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 5px;}
+  .modal input[type=text], .modal input[type=date], .modal textarea, .modal select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:'Nunito',sans-serif;font-size:14px;background:#fff;}
   .modal textarea{min-height:70px;resize:vertical;}
-  .modal .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
+  .modal .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap;}
   .modal .rowpair{display:flex;gap:10px;}
   .modal .rowpair > div{flex:1;}
+  .modal .hint{font-size:12px;opacity:.65;margin-top:4px;}
+
+  #listView{display:none;}
+  #listView.active{display:block;}
+  #calendarView{display:block;}
+  #calendarView.hidden{display:none;}
+  .list-hint{font-size:12.5px;color:var(--pine);background:#eef2ea;border-bottom:1px solid var(--line);padding:9px 22px;}
+  .list-body{padding:0 10px 24px;max-height:74vh;overflow:auto;}
+  .ltable{display:grid;grid-template-columns:76px 62px minmax(120px,1fr) minmax(160px,1.4fr) minmax(180px,1.6fr);min-width:720px;}
+  .lhead{position:sticky;top:0;z-index:3;display:contents;}
+  .lhead > div{background:var(--pine);color:var(--paper);font-family:'Fraunces',serif;font-weight:700;font-size:12.5px;padding:10px 8px;position:sticky;top:0;z-index:3;text-transform:uppercase;letter-spacing:.04em;}
+  .month-heading{grid-column:1/-1;position:sticky;top:36px;z-index:2;font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:var(--pine);background:#f3efe0;padding:8px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .lrow{display:contents;}
+  .lcell{border-bottom:1px solid var(--line);padding:8px 8px;font-size:12.5px;background:var(--paper);display:flex;align-items:flex-start;gap:5px;position:relative;}
+  .lrow.simple .lcell{background:#fbf8ef;}
+  .lcell.datecell{cursor:grab;font-weight:800;color:var(--pine);flex-direction:column;align-items:flex-start;gap:0;}
+  .lcell.datecell .handle{opacity:.4;font-size:12px;}
+  .lcell.draggable{cursor:grab;}
+  .lcell.draggable:hover{background:#f3efe0;}
+  .lcell.dragging{opacity:.35;}
+  .lcell.dragover{outline:2px dashed var(--pine);outline-offset:-2px;}
+  .lcell .swapbtn{border:none;background:none;cursor:pointer;color:var(--pine);opacity:.45;font-size:12px;position:absolute;top:5px;right:4px;}
+  .lcell .swapbtn:hover{opacity:.9;}
+  .lval{flex:1;min-width:0;}
+  .lval b{display:block;}
+  .lval small{opacity:.65;display:block;margin-top:2px;line-height:1.3;}
+  .letterbadge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--butter);color:#3a2c05;font-family:'Fraunces',serif;font-weight:700;font-size:12px;}
+  .chapelstar{color:var(--sky);margin-left:4px;}
+  .simplabel{font-weight:800;}
+  .rowactions{display:flex;gap:4px;margin-top:4px;}
+  .rowactions button{border:none;background:none;cursor:pointer;font-size:12px;color:var(--pine);opacity:.7;}
+  .rowactions button:hover{opacity:1;}
+  .list-empty{padding:30px;text-align:center;opacity:.6;font-style:italic;}
+  @media (max-width:640px){.ltable{min-width:640px;}}
 </style>
 </head>
 <body>
@@ -231,7 +162,7 @@
   <header class="hero">
     <div class="eyebrow">Spring Valley Baptist Preschool · 4K</div>
     <h1>What's happening in class</h1>
-    <p>Tap any school day to see the letter, Bible story, and theme — and what to have ready.</p>
+    <p>Tap any school day for details, or switch to List View to see everything as a table and drag any piece — a letter, a lesson, a whole week — to a new spot.</p>
   </header>
 
   <div class="panel" style="margin-bottom:20px;">
@@ -244,49 +175,60 @@
   </div>
 
   <div class="panel">
-    <div class="cal-header">
-      <div class="navgroup"><button id="prevBtn">&#8249;</button></div>
-      <h2 id="monthLabel">September 2026</h2>
-      <div class="navgroup"><button id="nextBtn">&#8250;</button></div>
+    <div class="viewtabs">
+      <button id="tabCalendar" class="active">Calendar</button>
+      <button id="tabList">List View (table)</button>
     </div>
-    <div class="legend">
-      <span><span class="dot" style="background:var(--card);border:1px solid var(--line);"></span>School day</span>
-      <span><span class="dot" style="background:#fbeae4;"></span>No preschool</span>
-      <span><span class="dot" style="background:var(--sky);"></span>Special event (•)</span>
-      <span><span class="dot" style="background:var(--butter);"></span>Letter of the week</span>
-      <span><span class="dot" style="background:var(--sky);border-radius:50%;"></span>My event</span>
-      <span><span class="dot" style="background:var(--coral);border-radius:50%;"></span>Absence</span>
-      <span><span class="dot" style="background:var(--butter);border-radius:50%;"></span>Note</span>
+
+    <div id="calendarView">
+      <div class="cal-header">
+        <div class="navgroup"><button id="prevBtn">&#8249;</button></div>
+        <h2 id="monthLabel">September 2026</h2>
+        <div class="navgroup"><button id="nextBtn">&#8250;</button></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--card);border:1px solid var(--line);"></span>School day</span>
+        <span><span class="dot" style="background:#fbeae4;"></span>No preschool</span>
+        <span><span class="dot" style="background:var(--sky);"></span>Special event (•)</span>
+        <span><span class="dot" style="background:var(--butter);"></span>Letter of the week</span>
+        <span><span class="dot" style="background:var(--sky);border-radius:50%;"></span>My event</span>
+        <span><span class="dot" style="background:var(--coral);border-radius:50%;"></span>Absence</span>
+        <span><span class="dot" style="background:var(--butter);border-radius:50%;"></span>Note</span>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" id="addBtn">+ Add event / absence / note</button>
+        <div class="spacer"></div>
+        <button class="btn" id="exportBtn">Export my items</button>
+        <button class="btn" id="importBtn">Import items</button>
+        <input type="file" id="importFile" accept="application/json">
+      </div>
+      <div class="grid" id="dowRow"></div>
+      <div class="grid" id="calGrid"></div>
+      <div class="detail" id="detail">
+        <p class="placeholder">Select any day above to see what's planned, or add your own event, absence, or note.</p>
+      </div>
     </div>
-    <div class="toolbar">
-      <button class="btn primary" id="addBtn">+ Add event / absence / note</button>
-      <div class="spacer"></div>
-      <button class="btn" id="exportBtn">Export my items</button>
-      <button class="btn" id="importBtn">Import items</button>
-      <input type="file" id="importFile" accept="application/json">
-    </div>
-    <div class="grid" id="dowRow"></div>
-    <div class="grid" id="calGrid"></div>
-    <div class="detail" id="detail">
-      <p class="placeholder">Select any day above to see what's planned, or add your own event, absence, or note.</p>
+
+    <div id="listView">
+      <div class="list-hint">
+        Drag any <b>Letter</b>, <b>Title</b>, <b>Lesson</b>, or <b>Description</b> cell onto the same column in another week to swap them. Drag the date on the left to swap an entire week. Closures, school events, and your own items drag onto any week's date to move there. Nothing is ever deleted — the ↺ icon on a moved cell puts it back.
+      </div>
+      <div class="toolbar">
+        <button class="btn primary small" id="addBtnList">+ Add event / absence / note</button>
+      </div>
+      <div class="list-body" id="listBody"></div>
     </div>
   </div>
 
-  <footer>Built for our family &mdash; based on the SVBP 2026&ndash;2027 calendar &amp; chapel schedule.<br>Your own added items are saved in this browser. Use Export/Import to share them across devices.</footer>
+  <footer>Built for our family &mdash; based on the SVBP 2026&ndash;2027 calendar &amp; chapel schedule.<br>Your own added items and any rearranging are saved to the shared calendar. Use Export/Import to back them up.</footer>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h3 id="modalTitle">Add item</h3>
     <div class="rowpair">
-      <div>
-        <label for="fDateStart">Start date</label>
-        <input type="date" id="fDateStart">
-      </div>
-      <div>
-        <label for="fDateEnd">End date (optional)</label>
-        <input type="date" id="fDateEnd">
-      </div>
+      <div><label for="fDateStart">Start date</label><input type="date" id="fDateStart"></div>
+      <div><label for="fDateEnd">End date (optional)</label><input type="date" id="fDateEnd"></div>
     </div>
     <label for="fType">Type</label>
     <select id="fType">
@@ -306,91 +248,160 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="moveModalOverlay">
+  <div class="modal">
+    <h3>Move to a new date</h3>
+    <div id="moveModalLabel" style="font-weight:800;color:var(--pine);margin-bottom:6px;"></div>
+    <div class="hint" id="moveModalOrig" style="margin-bottom:10px;"></div>
+    <label for="mDateStart">New start date</label>
+    <input type="date" id="mDateStart">
+    <label for="mDateEnd">New end date (optional, for multi-day items)</label>
+    <input type="date" id="mDateEnd">
+    <div class="modal-actions">
+      <button class="btn danger" id="moveResetBtn" style="display:none;">↺ Reset to original date</button>
+      <button class="btn" id="moveCancelBtn">Cancel</button>
+      <button class="btn primary" id="moveSaveBtn">Move it</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="swapModalOverlay">
+  <div class="modal">
+    <h3 id="swapModalTitle">Swap with...</h3>
+    <div class="hint" id="swapModalCurrent" style="margin-bottom:10px;"></div>
+    <label for="swapSelect">Choose the week to swap with</label>
+    <select id="swapSelect"></select>
+    <div class="modal-actions">
+      <button class="btn" id="swapCancelBtn">Cancel</button>
+      <button class="btn primary" id="swapConfirmBtn">Swap</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ---------- DATA ---------- */
-// Each "week" = one classroom content block (Mon-Fri, adjusted for closures)
+/* ---------- BASE CONTENT DATA (source of truth; never mutated) ---------- */
 const weeks = [
-  {start:'2026-09-02',end:'2026-09-04',letter:'A',theme:'Colors of Ice Cream',story:'Orientation week (God Made Me Special)',trait:'Welcome',book:'Pete the Cat: I Love My White Shoes',activity:'Ark craft, scissors practice',chapel:null,prep:'Welcome packet; ice-cream-color craft supplies.'},
-  {start:'2026-09-07',end:'2026-09-11',letter:'B',theme:'Shapes in My World',story:'The Lord Is My Shepherd',trait:'Trust',book:'Mouse Shapes',activity:'Dot markers, shape cut-outs',chapel:null,prep:'Dot markers; shape cutouts.'},
-  {start:'2026-09-14',end:'2026-09-18',letter:'C',theme:'God Made Me Special',story:'The 10 Plagues',trait:'Obedience',book:'Emma Kate',activity:'Self-portrait draw',chapel:null,prep:'Mirrors or photos for self-portraits.'},
-  {start:'2026-09-21',end:'2026-09-25',letter:'D',theme:'Firefighters (lead-in)',story:'The Lost Sheep',trait:'Forgiveness',book:'Curious George and the Firefighters',activity:'Cotton-ball sheep craft',chapel:{date:'2026-09-23',story:'The Lost Sheep',trait:'Forgiveness'},prep:'Cotton balls for sheep craft; chapel is Wed the 23rd.'},
-  {start:'2026-10-05',end:'2026-10-09',letter:'E',theme:'Firefighters',story:"Noah's Ark",trait:'Obedience',book:'Curious George and the Firefighters',activity:'Fiery crayon art',chapel:{date:'2026-10-07',story:"Noah's Ark",trait:'Obedience'},prep:'Fire-safety visuals; chapel is Wed the 7th.'},
-  {start:'2026-10-12',end:'2026-10-16',letter:'F',theme:'Police Officers',story:'The Fiery Furnace',trait:'Courage',book:'What Do People Do All Day?',activity:'Scissors practice sheets',chapel:null,prep:'Scissors practice sheets.'},
-  {start:'2026-10-19',end:'2026-10-23',letter:'G',theme:'Postal Workers',story:'Daniel in the Lions\u2019 Den',trait:'Courage',book:'Toot & Puddle',activity:'Lion mask craft',chapel:{date:'2026-10-21',story:'Daniel in the Lions\u2019 Den',trait:'Courage'},prep:'Paper plates for lion masks; chapel is Wed the 21st.'},
-  {start:'2026-10-26',end:'2026-10-30',letter:'H',theme:'Pumpkins / Fall',story:'Elijah Fed by Birds',trait:'Faith',book:'Pumpkin Jack',activity:'Pumpkin painting, bird craft',chapel:null,prep:'Paint smocks; mini pumpkins if doing pumpkin painting.'},
-  {start:'2026-11-04',end:'2026-11-06',letter:'I',theme:'Under the Sea',story:'Jonah',trait:'Integrity',book:'The Rainbow Fish',activity:'Whale/boat craft',chapel:{date:'2026-11-04',story:'Jonah',trait:'Integrity'},prep:'Blue paper/boat craft supplies; chapel is Wed the 4th (first day back after the 2nd-3rd off).'},
-  {start:'2026-11-09',end:'2026-11-13',letter:'J',theme:'Community Helpers Wrap-up',story:"Elisha's Room",trait:'Generosity',book:'George and Martha: The Tooth',activity:'Dental hygiene kits',chapel:null,prep:'Goodies with Grands is Nov 10-11 this week \u2014 check for grandparent RSVP/snack needs.'},
-  {start:'2026-11-16',end:'2026-11-20',letter:'K',theme:'Thankfulness',story:'The 10 Lepers',trait:'Thankful',book:'Gregory, the Terrible Eater',activity:'Thankful leaf craft',chapel:{date:'2026-11-18',story:'The 10 Lepers',trait:'Thankful'},prep:'Leaf cutouts for gratitude craft; chapel is Wed the 18th. No school Nov 23-27 (Thanksgiving).'},
-  {start:'2026-11-30',end:'2026-12-04',letter:'L',theme:'Christmas Begins',story:'Jesus Is Born',trait:'Hope',book:'Silent Night (song/story)',activity:'Nativity craft',chapel:{date:'2026-12-02',story:'Jesus Is Born',trait:'Hope'},prep:'Nativity craft supplies; chapel is Wed Dec 2.'},
-  {start:'2026-12-07',end:'2026-12-11',letter:'M',theme:'Christmas Program',story:'Mary\u2019s Gift for Jesus',trait:'Giving',book:'Mr. Putter & Tabby Bake the Cake',activity:'Shaving cream art, gift craft',chapel:null,prep:'Christmas Program is Fri Dec 11, 6:30pm \u2014 costumes/outfit & arrive early.'},
-  {start:'2026-12-14',end:'2026-12-16',letter:'N',theme:'Christmas Wrap-up',story:'Review / class party',trait:'Love',book:'\u2014',activity:'Class party',chapel:null,prep:'Pack up belongings before break \u2014 last day before break is Wed Dec 16.'},
-  {start:'2027-01-07',end:'2027-01-08',letter:'O',theme:'Winter / Snow',story:'Transition week (review)',trait:'\u2014',book:'Little Bear: What Will Little Bear Wear',activity:'Sensory snow bin',chapel:null,prep:'Sensory snow bin materials (salt/fake snow); first days back are Thu-Fri.'},
-  {start:'2027-01-11',end:'2027-01-15',letter:'P',theme:'New Year, New Rules',story:'The 10 Commandments',trait:'Respect',book:'Classroom-rules themed book',activity:'Classroom rules chart',chapel:{date:'2027-01-13',story:'The 10 Commandments',trait:'Respect'},prep:'Chapel is Wed Jan 13.'},
-  {start:'2027-01-19',end:'2027-01-22',letter:'Q',theme:'Doctors & Helpers',story:'Jesus Heals Their Friend',trait:'Kindness',book:'George and Martha: The Tooth',activity:'Doctor kit dress-up',chapel:null,prep:'No school Mon Jan 18 (MLK Day) \u2014 week starts Tuesday.'},
-  {start:'2027-01-25',end:'2027-01-29',letter:'R',theme:'Being a Helper',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood',book:'Guess How Much I Love You',activity:'Helper badges',chapel:{date:'2027-01-27',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood'},prep:'Chapel is Wed Jan 27.'},
-  {start:'2027-02-01',end:'2027-02-05',letter:'S',theme:'My Friends',story:'David and Jonathan',trait:'Friendship',book:'Peanut Butter & Cupcake!',activity:'Friendship bracelet craft',chapel:{date:'2027-02-03',story:'David and Jonathan',trait:'Friendship'},prep:'Bracelet-making supplies; chapel is Wed Feb 3.'},
-  {start:'2027-02-08',end:'2027-02-11',letter:'T',theme:'My Family',story:'The Talents',trait:'Responsibility',book:'The Kissing Hand',activity:'Froot Loop patterns',chapel:null,prep:'Donuts with Dads is Feb 9-10 \u2014 check volunteer/RSVP needs. No school Fri Feb 12.'},
-  {start:'2027-02-17',end:'2027-02-19',letter:'U',theme:'My Emotions',story:'God Provided Food',trait:'Self-Control',book:'The Color Monster',activity:'Emotion color jars',chapel:{date:'2027-02-17',story:'God Provided Food',trait:'Self-Control'},prep:'No school Feb 15-16 (Presidents Day). Chapel is Wed Feb 17, first day back.'},
-  {start:'2027-02-22',end:'2027-02-26',letter:'V',theme:'Nutrition',story:'Review week',trait:'\u2014',book:'Gregory, the Terrible Eater',activity:'Healthy snack tasting',chapel:null,prep:'Healthy snack tasting \u2014 check for allergy list before sending food.'},
-  {start:'2027-03-01',end:'2027-03-05',letter:'W',theme:'Perseverance / Sight',story:'Blind Bartimaeus',trait:'Perseverance',book:'Harry the Dirty Dog',activity:'Bubble art',chapel:{date:'2027-03-03',story:'Blind Bartimaeus',trait:'Perseverance'},prep:'Chapel is Wed Mar 3.'},
-  {start:'2027-03-08',end:'2027-03-12',letter:'X',theme:'Spring Bash Prep',story:'Paul and Silas in Jail',trait:'Joy',book:'The Day Jimmy\u2019s Boa Ate the Wash',activity:'Coin patterns',chapel:null,prep:'Spring Bash is Fri Mar 12, 6:30pm \u2014 check volunteer signup.'},
-  {start:'2027-03-15',end:'2027-03-18',letter:'Y',theme:'Easter',story:'Jesus\u2019 Death & Resurrection',trait:'Love',book:'Easter-themed story',activity:'Resurrection eggs craft',chapel:{date:'2027-03-17',story:'Jesus\u2019 Death/Resurrection',trait:'Love'},prep:'Resurrection eggs craft supplies; chapel is Wed Mar 17. Spring Break starts Fri Mar 19.'},
-  {start:'2027-03-29',end:'2027-04-02',letter:'Z',theme:'Post-Easter Review \u2014 Alphabet Complete!',story:'The Wordless Book',trait:'Believe',book:'Franklin Goes to School',activity:'Gospel color-book craft',chapel:null,prep:'Back from Spring Break \u2014 first day is Mon Mar 29. Alphabet finishes this week!'},
-  {start:'2027-04-05',end:'2027-04-08',letter:'Review A\u2013F',theme:'Under the Sea',story:'Jesus Walks on Water',trait:'Trust',book:'The Rainbow Fish',activity:'Water-walk sensory activity',chapel:{date:'2027-04-07',story:'Jesus Walks on Water',trait:'Trust'},prep:'Chapel is Wed Apr 7. No school Fri Apr 9.'},
-  {start:'2027-04-12',end:'2027-04-16',letter:'Review G\u2013M',theme:'Bees, Bugs & Spiders',story:'King Josiah',trait:'Integrity',book:'Because a Little Bug Went Ka-Choo!',activity:'Spider-leg craft',chapel:null,prep:'Bug/spider craft materials.'},
-  {start:'2027-04-19',end:'2027-04-23',letter:'Review N\u2013S',theme:'My Family (Moms)',story:"Naaman's Servant Girl",trait:'Kindness',book:'Guess How Much I Love You',activity:'Fingerpaint, kindness cards',chapel:null,prep:'Munchies with Moms is Apr 20-21 \u2014 check volunteer/RSVP needs.'},
-  {start:'2027-04-28',end:'2027-04-30',letter:'Review T\u2013Z',theme:'Construction',story:'Tower of Babel',trait:'Humility',book:'Goodnight, Goodnight, Construction Site',activity:'Block tower craft',chapel:{date:'2027-04-28',story:'Tower of Babel',trait:'Humility'},prep:'No school Apr 26-27. Chapel is Wed Apr 28, first day back.'},
-  {start:'2027-05-03',end:'2027-05-07',letter:'Full Review',theme:'Beach / Summer Send-off, Graduation',story:'Jesus Heals a Little Girl & The Rich Farmer',trait:'Faith / Contentment',book:'Olivia',activity:'Sand play, memory books',chapel:null,prep:'4K Graduation is Fri May 7, 6:30pm. Last days of preschool are May 6-7 \u2014 gather belongings, caps/gowns if used.'}
+{start:'2026-09-02',end:'2026-09-04',letter:'A',theme:'Colors of Ice Cream',story:'Orientation week (God Made Me Special)',trait:'Welcome',book:'Pete the Cat: I Love My White Shoes',activity:'Ark craft, scissors practice',chapel:null,prep:'Welcome packet; ice-cream-color craft supplies.'},
+{start:'2026-09-07',end:'2026-09-11',letter:'B',theme:'Shapes in My World',story:'The Lord Is My Shepherd',trait:'Trust',book:'Mouse Shapes',activity:'Dot markers, shape cut-outs',chapel:null,prep:'Dot markers; shape cutouts.'},
+{start:'2026-09-14',end:'2026-09-18',letter:'C',theme:'God Made Me Special',story:'The 10 Plagues',trait:'Obedience',book:'Emma Kate',activity:'Self-portrait draw',chapel:null,prep:'Mirrors or photos for self-portraits.'},
+{start:'2026-09-21',end:'2026-09-25',letter:'D',theme:'Firefighters (lead-in)',story:'The Lost Sheep',trait:'Forgiveness',book:'Curious George and the Firefighters',activity:'Cotton-ball sheep craft',chapel:{date:'2026-09-23',story:'The Lost Sheep',trait:'Forgiveness'},prep:'Cotton balls for sheep craft; chapel is Wed the 23rd.'},
+{start:'2026-10-05',end:'2026-10-09',letter:'E',theme:'Firefighters',story:"Noah's Ark",trait:'Obedience',book:'Curious George and the Firefighters',activity:'Fiery crayon art',chapel:{date:'2026-10-07',story:"Noah's Ark",trait:'Obedience'},prep:'Fire-safety visuals; chapel is Wed the 7th.'},
+{start:'2026-10-12',end:'2026-10-16',letter:'F',theme:'Police Officers',story:'The Fiery Furnace',trait:'Courage',book:'What Do People Do All Day?',activity:'Scissors practice sheets',chapel:null,prep:'Scissors practice sheets.'},
+{start:'2026-10-19',end:'2026-10-23',letter:'G',theme:'Postal Workers',story:'Daniel in the Lions\u2019 Den',trait:'Courage',book:'Toot & Puddle',activity:'Lion mask craft',chapel:{date:'2026-10-21',story:'Daniel in the Lions\u2019 Den',trait:'Courage'},prep:'Paper plates for lion masks; chapel is Wed the 21st.'},
+{start:'2026-10-26',end:'2026-10-30',letter:'H',theme:'Pumpkins / Fall',story:'Elijah Fed by Birds',trait:'Faith',book:'Pumpkin Jack',activity:'Pumpkin painting, bird craft',chapel:null,prep:'Paint smocks; mini pumpkins if doing pumpkin painting.'},
+{start:'2026-11-04',end:'2026-11-06',letter:'I',theme:'Under the Sea',story:'Jonah',trait:'Integrity',book:'The Rainbow Fish',activity:'Whale/boat craft',chapel:{date:'2026-11-04',story:'Jonah',trait:'Integrity'},prep:'Blue paper/boat craft supplies; chapel is Wed the 4th (first day back after the 2nd-3rd off).'},
+{start:'2026-11-09',end:'2026-11-13',letter:'J',theme:'Community Helpers Wrap-up',story:"Elisha's Room",trait:'Generosity',book:'George and Martha: The Tooth',activity:'Dental hygiene kits',chapel:null,prep:'Goodies with Grands is Nov 10-11 this week \u2014 check for grandparent RSVP/snack needs.'},
+{start:'2026-11-16',end:'2026-11-20',letter:'K',theme:'Thankfulness',story:'The 10 Lepers',trait:'Thankful',book:'Gregory, the Terrible Eater',activity:'Thankful leaf craft',chapel:{date:'2026-11-18',story:'The 10 Lepers',trait:'Thankful'},prep:'Leaf cutouts for gratitude craft; chapel is Wed the 18th. No school Nov 23-27 (Thanksgiving).'},
+{start:'2026-11-30',end:'2026-12-04',letter:'L',theme:'Christmas Begins',story:'Jesus Is Born',trait:'Hope',book:'Silent Night (song/story)',activity:'Nativity craft',chapel:{date:'2026-12-02',story:'Jesus Is Born',trait:'Hope'},prep:'Nativity craft supplies; chapel is Wed Dec 2.'},
+{start:'2026-12-07',end:'2026-12-11',letter:'M',theme:'Christmas Program',story:'Mary\u2019s Gift for Jesus',trait:'Giving',book:'Mr. Putter & Tabby Bake the Cake',activity:'Shaving cream art, gift craft',chapel:null,prep:'Christmas Program is Fri Dec 11, 6:30pm \u2014 costumes/outfit & arrive early.'},
+{start:'2026-12-14',end:'2026-12-16',letter:'N',theme:'Christmas Wrap-up',story:'Review / class party',trait:'Love',book:'\u2014',activity:'Class party',chapel:null,prep:'Pack up belongings before break \u2014 last day before break is Wed Dec 16.'},
+{start:'2027-01-07',end:'2027-01-08',letter:'O',theme:'Winter / Snow',story:'Transition week (review)',trait:'\u2014',book:'Little Bear: What Will Little Bear Wear',activity:'Sensory snow bin',chapel:null,prep:'Sensory snow bin materials (salt/fake snow); first days back are Thu-Fri.'},
+{start:'2027-01-11',end:'2027-01-15',letter:'P',theme:'New Year, New Rules',story:'The 10 Commandments',trait:'Respect',book:'Classroom-rules themed book',activity:'Classroom rules chart',chapel:{date:'2027-01-13',story:'The 10 Commandments',trait:'Respect'},prep:'Chapel is Wed Jan 13.'},
+{start:'2027-01-19',end:'2027-01-22',letter:'Q',theme:'Doctors & Helpers',story:'Jesus Heals Their Friend',trait:'Kindness',book:'George and Martha: The Tooth',activity:'Doctor kit dress-up',chapel:null,prep:'No school Mon Jan 18 (MLK Day) \u2014 week starts Tuesday.'},
+{start:'2027-01-25',end:'2027-01-29',letter:'R',theme:'Being a Helper',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood',book:'Guess How Much I Love You',activity:'Helper badges',chapel:{date:'2027-01-27',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood'},prep:'Chapel is Wed Jan 27.'},
+{start:'2027-02-01',end:'2027-02-05',letter:'S',theme:'My Friends',story:'David and Jonathan',trait:'Friendship',book:'Peanut Butter & Cupcake!',activity:'Friendship bracelet craft',chapel:{date:'2027-02-03',story:'David and Jonathan',trait:'Friendship'},prep:'Bracelet-making supplies; chapel is Wed Feb 3.'},
+{start:'2027-02-08',end:'2027-02-11',letter:'T',theme:'My Family',story:'The Talents',trait:'Responsibility',book:'The Kissing Hand',activity:'Froot Loop patterns',chapel:null,prep:'Donuts with Dads is Feb 9-10 \u2014 check volunteer/RSVP needs. No school Fri Feb 12.'},
+{start:'2027-02-17',end:'2027-02-19',letter:'U',theme:'My Emotions',story:'God Provided Food',trait:'Self-Control',book:'The Color Monster',activity:'Emotion color jars',chapel:{date:'2027-02-17',story:'God Provided Food',trait:'Self-Control'},prep:'No school Feb 15-16 (Presidents Day). Chapel is Wed Feb 17, first day back.'},
+{start:'2027-02-22',end:'2027-02-26',letter:'V',theme:'Nutrition',story:'Review week',trait:'\u2014',book:'Gregory, the Terrible Eater',activity:'Healthy snack tasting',chapel:null,prep:'Healthy snack tasting \u2014 check for allergy list before sending food.'},
+{start:'2027-03-01',end:'2027-03-05',letter:'W',theme:'Perseverance / Sight',story:'Blind Bartimaeus',trait:'Perseverance',book:'Harry the Dirty Dog',activity:'Bubble art',chapel:{date:'2027-03-03',story:'Blind Bartimaeus',trait:'Perseverance'},prep:'Chapel is Wed Mar 3.'},
+{start:'2027-03-08',end:'2027-03-12',letter:'X',theme:'Spring Bash Prep',story:'Paul and Silas in Jail',trait:'Joy',book:'The Day Jimmy\u2019s Boa Ate the Wash',activity:'Coin patterns',chapel:null,prep:'Spring Bash is Fri Mar 12, 6:30pm \u2014 check volunteer signup.'},
+{start:'2027-03-15',end:'2027-03-18',letter:'Y',theme:'Easter',story:'Jesus\u2019 Death & Resurrection',trait:'Love',book:'Easter-themed story',activity:'Resurrection eggs craft',chapel:{date:'2027-03-17',story:'Jesus\u2019 Death/Resurrection',trait:'Love'},prep:'Resurrection eggs craft supplies; chapel is Wed Mar 17. Spring Break starts Fri Mar 19.'},
+{start:'2027-03-29',end:'2027-04-02',letter:'Z',theme:'Post-Easter Review \u2014 Alphabet Complete!',story:'The Wordless Book',trait:'Believe',book:'Franklin Goes to School',activity:'Gospel color-book craft',chapel:null,prep:'Back from Spring Break \u2014 first day is Mon Mar 29. Alphabet finishes this week!'},
+{start:'2027-04-05',end:'2027-04-08',letter:'Review A\u2013F',theme:'Under the Sea',story:'Jesus Walks on Water',trait:'Trust',book:'The Rainbow Fish',activity:'Water-walk sensory activity',chapel:{date:'2027-04-07',story:'Jesus Walks on Water',trait:'Trust'},prep:'Chapel is Wed Apr 7. No school Fri Apr 9.'},
+{start:'2027-04-12',end:'2027-04-16',letter:'Review G\u2013M',theme:'Bees, Bugs & Spiders',story:'King Josiah',trait:'Integrity',book:'Because a Little Bug Went Ka-Choo!',activity:'Spider-leg craft',chapel:null,prep:'Bug/spider craft materials.'},
+{start:'2027-04-19',end:'2027-04-23',letter:'Review N\u2013S',theme:'My Family (Moms)',story:"Naaman's Servant Girl",trait:'Kindness',book:'Guess How Much I Love You',activity:'Fingerpaint, kindness cards',chapel:null,prep:'Munchies with Moms is Apr 20-21 \u2014 check volunteer/RSVP needs.'},
+{start:'2027-04-28',end:'2027-04-30',letter:'Review T\u2013Z',theme:'Construction',story:'Tower of Babel',trait:'Humility',book:'Goodnight, Goodnight, Construction Site',activity:'Block tower craft',chapel:{date:'2027-04-28',story:'Tower of Babel',trait:'Humility'},prep:'No school Apr 26-27. Chapel is Wed Apr 28, first day back.'},
+{start:'2027-05-03',end:'2027-05-07',letter:'Full Review',theme:'Beach / Summer Send-off, Graduation',story:'Jesus Heals a Little Girl & The Rich Farmer',trait:'Faith / Contentment',book:'Olivia',activity:'Sand play, memory books',chapel:null,prep:'4K Graduation is Fri May 7, 6:30pm. Last days of preschool are May 6-7 \u2014 gather belongings, caps/gowns if used.'}
 ];
 
 const closures = [
-  {start:'2026-09-07',end:'2026-09-07',label:'No Preschool \u2014 Labor Day'},
-  {start:'2026-09-18',end:'2026-09-18',label:'No Preschool'},
-  {start:'2026-10-08',end:'2026-10-12',label:'No Preschool'},
-  {start:'2026-11-02',end:'2026-11-03',label:'No Preschool'},
-  {start:'2026-11-23',end:'2026-11-27',label:'No Preschool \u2014 Thanksgiving Break'},
-  {start:'2026-12-17',end:'2027-01-06',label:'No Preschool \u2014 Christmas Break'},
-  {start:'2027-01-18',end:'2027-01-18',label:'No Preschool \u2014 MLK Day'},
-  {start:'2027-02-12',end:'2027-02-12',label:'No Preschool'},
-  {start:'2027-02-15',end:'2027-02-16',label:'No Preschool \u2014 Presidents Day'},
-  {start:'2027-03-19',end:'2027-03-26',label:'No Preschool \u2014 Spring Break'},
-  {start:'2027-04-09',end:'2027-04-09',label:'No Preschool'},
-  {start:'2027-04-26',end:'2027-04-27',label:'No Preschool'}
+{start:'2026-09-07',end:'2026-09-07',label:'No Preschool \u2014 Labor Day'},
+{start:'2026-09-18',end:'2026-09-18',label:'No Preschool'},
+{start:'2026-10-08',end:'2026-10-12',label:'No Preschool'},
+{start:'2026-11-02',end:'2026-11-03',label:'No Preschool'},
+{start:'2026-11-23',end:'2026-11-27',label:'No Preschool \u2014 Thanksgiving Break'},
+{start:'2026-12-17',end:'2027-01-06',label:'No Preschool \u2014 Christmas Break'},
+{start:'2027-01-18',end:'2027-01-18',label:'No Preschool \u2014 MLK Day'},
+{start:'2027-02-12',end:'2027-02-12',label:'No Preschool'},
+{start:'2027-02-15',end:'2027-02-16',label:'No Preschool \u2014 Presidents Day'},
+{start:'2027-03-19',end:'2027-03-26',label:'No Preschool \u2014 Spring Break'},
+{start:'2027-04-09',end:'2027-04-09',label:'No Preschool'},
+{start:'2027-04-26',end:'2027-04-27',label:'No Preschool'}
 ];
 
 const specialEvents = [
-  {start:'2026-08-28',end:'2026-08-28',label:'Play Orientation'},
-  {start:'2026-09-03',end:'2026-09-04',label:'Parent Orientation'},
-  {start:'2026-11-10',end:'2026-11-11',label:'Goodies with Grands'},
-  {start:'2026-12-11',end:'2026-12-11',label:'Preschool Christmas Program, 6:30pm'},
-  {start:'2027-02-09',end:'2027-02-10',label:'Donuts with Dads'},
-  {start:'2027-03-12',end:'2027-03-12',label:'Spring Bash, 6:30pm'},
-  {start:'2027-04-20',end:'2027-04-21',label:'Munchies with Moms'},
-  {start:'2027-05-07',end:'2027-05-07',label:'4K Graduation, 6:30pm'}
+{start:'2026-08-28',end:'2026-08-28',label:'Play Orientation'},
+{start:'2026-09-03',end:'2026-09-04',label:'Parent Orientation'},
+{start:'2026-11-10',end:'2026-11-11',label:'Goodies with Grands'},
+{start:'2026-12-11',end:'2026-12-11',label:'Preschool Christmas Program, 6:30pm'},
+{start:'2027-02-09',end:'2027-02-10',label:'Donuts with Dads'},
+{start:'2027-03-12',end:'2027-03-12',label:'Spring Bash, 6:30pm'},
+{start:'2027-04-20',end:'2027-04-21',label:'Munchies with Moms'},
+{start:'2027-05-07',end:'2027-05-07',label:'4K Graduation, 6:30pm'}
 ];
 
-/* ---------- helpers ---------- */
 const MS_DAY = 86400000;
 function toDate(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 function fmt(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function inRange(dateStr,start,end){return dateStr>=start && dateStr<=end;}
-function findWeek(dateStr){return weeks.find(w=>inRange(dateStr,w.start,w.end));}
-function findClosure(dateStr){return closures.find(c=>inRange(dateStr,c.start,c.end));}
-function findEvent(dateStr){return specialEvents.find(e=>inRange(dateStr,e.start,e.end));}
-function findCustom(dateStr){return customEvents.filter(c=>inRange(dateStr,c.start,c.end||c.start));}
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-/* ---------- custom events (shared, via API) ---------- */
-// The API runs as its own standalone Azure Function App (Static Web Apps'
-// Free tier doesn't support linking a "bring your own" backend, so this
-// calls it directly instead of through a same-origin /api proxy).
-// CORS must be enabled on the Function App for this site's domain(s) —
-// see Function App > API > CORS in the Azure Portal.
+const N = weeks.length;
+const slots = weeks.map(w=>({start:w.start,end:w.end}));
+const letters = weeks.map(w=>w.letter);
+const titles = weeks.map(w=>w.theme);
+const lessons = weeks.map(w=>({story:w.story,trait:w.trait,chapel:w.chapel}));
+const descriptions = weeks.map(w=>({book:w.book,activity:w.activity,prep:w.prep}));
+const TRACKS = ['letter','title','lesson','desc'];
+function identityOrder(){ return Array.from({length:N},(_,i)=>i); }
+let trackOrders = {letter:identityOrder(),title:identityOrder(),lesson:identityOrder(),desc:identityOrder()};
+
+function effectiveWeeks(){
+  return slots.map((slot,i)=>{
+    const li = trackOrders.letter[i], ti = trackOrders.title[i], si = trackOrders.lesson[i], di = trackOrders.desc[i];
+    const les = lessons[si], desc = descriptions[di];
+    return {
+      start:slot.start, end:slot.end,
+      letter:letters[li], theme:titles[ti], story:les.story, trait:les.trait, chapel:les.chapel,
+      book:desc.book, activity:desc.activity, prep:desc.prep,
+      slotIndex:i,
+      letterMoved: li!==i, titleMoved: ti!==i, lessonMoved: si!==i, descMoved: di!==i
+    };
+  });
+}
+function findWeek(dateStr){return effectiveWeeks().find(w=>inRange(dateStr,w.start,w.end||w.start));}
+
+function refKeyFor(kind, item){ return kind+':'+item.start; }
+function buildOverridesMap(){
+  const map = {};
+  customEvents.filter(c=>c.type==='override').forEach(o=>{
+    let parsed = {};
+    try{ parsed = JSON.parse(o.note||'{}'); }catch(e){}
+    if(parsed.refKey){ map[parsed.refKey] = {id:o.id, newStart:o.start, newEnd:o.end||o.start, orig:parsed}; }
+  });
+  return map;
+}
+let overridesMap = {};
+function effectiveClosure(c){
+  const ov = overridesMap[refKeyFor('closure',c)];
+  if(!ov) return {...c, _moved:false, _origStart:c.start, _origEnd:c.end};
+  return {...c, start:ov.newStart, end:ov.newEnd, _moved:true, _origStart:c.start, _origEnd:c.end, _overrideId:ov.id};
+}
+function effectiveSpecial(e){
+  const ov = overridesMap[refKeyFor('special',e)];
+  if(!ov) return {...e, _moved:false, _origStart:e.start, _origEnd:e.end};
+  return {...e, start:ov.newStart, end:ov.newEnd, _moved:true, _origStart:e.start, _origEnd:e.end, _overrideId:ov.id};
+}
+function effectiveClosures(){ return closures.map(effectiveClosure); }
+function effectiveSpecials(){ return specialEvents.map(effectiveSpecial); }
+function findClosure(dateStr){return effectiveClosures().find(c=>inRange(dateStr,c.start,c.end||c.start));}
+function findEvent(dateStr){return effectiveSpecials().find(e=>inRange(dateStr,e.start,e.end||e.start));}
+function findCustom(dateStr){return customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder' && inRange(dateStr,c.start,c.end||c.start));}
+
 const API_BASE = 'https://svbp-calendar-api-dkcbfgbgbxgrh4gh.eastus-01.azurewebsites.net';
 const OFFLINE_CACHE_KEY = 'svbp_custom_events_cache_v1';
 let customEvents = [];
 let apiOnline = true;
-
 function cacheLocally(){ try{ localStorage.setItem(OFFLINE_CACHE_KEY, JSON.stringify(customEvents)); }catch(e){} }
 function loadLocalCache(){ try{ return JSON.parse(localStorage.getItem(OFFLINE_CACHE_KEY)) || []; }catch(e){ return []; } }
 function setOnlineStatus(online){
@@ -399,25 +410,22 @@ function setOnlineStatus(online){
   if(!banner) return;
   banner.style.display = online ? 'none' : 'block';
 }
+async function apiGetItems(){ const res = await fetch(`${API_BASE}/api/items`); if(!res.ok) throw new Error('API error '+res.status); return res.json(); }
+async function apiCreateItem(item){ const res = await fetch(`${API_BASE}/api/items`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)}); if(!res.ok) throw new Error('API error '+res.status); return res.json(); }
+async function apiUpdateItem(id,item){ const res = await fetch(`${API_BASE}/api/items/${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)}); if(!res.ok) throw new Error('API error '+res.status); return res.json(); }
+async function apiDeleteItem(id){ const res = await fetch(`${API_BASE}/api/items/${id}`,{method:'DELETE'}); if(!res.ok) throw new Error('API error '+res.status); }
 
-async function apiGetItems(){
-  const res = await fetch(`${API_BASE}/api/items`);
-  if(!res.ok) throw new Error('API error '+res.status);
-  return res.json();
-}
-async function apiCreateItem(item){
-  const res = await fetch(`${API_BASE}/api/items`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});
-  if(!res.ok) throw new Error('API error '+res.status);
-  return res.json();
-}
-async function apiUpdateItem(id,item){
-  const res = await fetch(`${API_BASE}/api/items/${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});
-  if(!res.ok) throw new Error('API error '+res.status);
-  return res.json();
-}
-async function apiDeleteItem(id){
-  const res = await fetch(`${API_BASE}/api/items/${id}`,{method:'DELETE'});
-  if(!res.ok) throw new Error('API error '+res.status);
+function buildTrackOrders(){
+  const result = {letter:identityOrder(),title:identityOrder(),lesson:identityOrder(),desc:identityOrder()};
+  customEvents.filter(c=>c.type==='trackorder').forEach(c=>{
+    if(TRACKS.includes(c.title)){
+      try{
+        const arr = JSON.parse(c.note||'[]');
+        if(Array.isArray(arr) && arr.length===N) result[c.title]=arr;
+      }catch(e){}
+    }
+  });
+  return result;
 }
 
 async function loadCustomEvents(){
@@ -429,11 +437,56 @@ async function loadCustomEvents(){
     customEvents = loadLocalCache();
     setOnlineStatus(false);
   }
+  overridesMap = buildOverridesMap();
+  trackOrders = buildTrackOrders();
   renderCalendar();
   renderNextUp();
+  renderListView();
 }
 function uid(){ return 'c_'+Date.now()+'_'+Math.random().toString(36).slice(2,7); }
 
+async function saveTrackOrder(track, arr){
+  const existing = customEvents.find(c=>c.type==='trackorder' && c.title===track);
+  const payload = {start:slots[0].start, end:null, type:'trackorder', title:track, note:JSON.stringify(arr)};
+  try{
+    if(existing){
+      const updated = await apiUpdateItem(existing.id, payload);
+      const idx = customEvents.findIndex(c=>c.id===existing.id);
+      if(idx>-1) customEvents[idx]=updated; else customEvents.push(updated);
+    } else {
+      const created = await apiCreateItem(payload);
+      customEvents.push(created);
+    }
+    setOnlineStatus(true);
+  }catch(e){
+    if(existing){ Object.assign(existing,payload); } else { customEvents.push({id:uid(),...payload,pendingSync:true}); }
+    setOnlineStatus(false);
+  }
+  cacheLocally();
+}
+
+async function swapTrack(track, i, j){
+  if(i===j) return;
+  const arr = trackOrders[track].slice();
+  const tmp = arr[i]; arr[i]=arr[j]; arr[j]=tmp;
+  trackOrders[track] = arr;
+  await saveTrackOrder(track, arr);
+  renderCalendar(); renderNextUp(); renderListView();
+}
+async function swapAllTracks(i,j){
+  if(i===j) return;
+  for(const t of TRACKS){
+    const arr = trackOrders[t].slice();
+    const tmp = arr[i]; arr[i]=arr[j]; arr[j]=tmp;
+    trackOrders[t] = arr;
+    await saveTrackOrder(t, arr);
+  }
+  renderCalendar(); renderNextUp(); renderListView();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{});
+
+/* ---------- add/edit modal (custom items) ---------- */
 let editingId = null;
 const modalOverlay = document.getElementById('modalOverlay');
 function openModal(prefillDate, existing){
@@ -449,8 +502,8 @@ function openModal(prefillDate, existing){
   document.getElementById('fTitle').focus();
 }
 function closeModal(){ modalOverlay.classList.remove('open'); editingId=null; }
-
 document.getElementById('addBtn').addEventListener('click',()=>openModal(fmt(new Date()), null));
+document.getElementById('addBtnList').addEventListener('click',()=>openModal(fmt(new Date()), null));
 document.getElementById('cancelBtn').addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', (e)=>{ if(e.target===modalOverlay) closeModal(); });
 
@@ -476,8 +529,6 @@ document.getElementById('saveBtn').addEventListener('click', async ()=>{
     cacheLocally();
     setOnlineStatus(true);
   }catch(e){
-    // Couldn't reach the shared calendar — save locally so nothing is lost,
-    // and flag it so it's obvious this hasn't synced to Lesleigh's view yet.
     if(editingId){
       const item = customEvents.find(c=>c.id===editingId);
       if(item) Object.assign(item,payload);
@@ -491,40 +542,27 @@ document.getElementById('saveBtn').addEventListener('click', async ()=>{
   closeModal();
   const savedDate = toDate(start);
   cursor = new Date(savedDate.getFullYear(), savedDate.getMonth(), 1);
-  renderCalendar();
-  renderNextUp();
+  renderCalendar(); renderNextUp(); renderListView();
   selectDay(start, findCellForDate(start));
 });
 
 document.getElementById('deleteBtn').addEventListener('click', async ()=>{
   if(!editingId) return;
   if(!confirm('Delete this item?')) return;
-  try{
-    await apiDeleteItem(editingId);
-    setOnlineStatus(true);
-  }catch(e){
-    setOnlineStatus(false);
-  }
+  try{ await apiDeleteItem(editingId); setOnlineStatus(true); }catch(e){ setOnlineStatus(false); }
   customEvents = customEvents.filter(c=>c.id!==editingId);
   cacheLocally();
   closeModal();
-  renderCalendar();
-  renderNextUp();
+  renderCalendar(); renderNextUp(); renderListView();
 });
 
 document.getElementById('exportBtn').addEventListener('click',()=>{
   const blob = new Blob([JSON.stringify(customEvents,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'svbp-calendar-items.json';
-  a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'svbp-calendar-items.json'; a.click();
 });
-document.getElementById('importBtn').addEventListener('click',()=>{
-  document.getElementById('importFile').click();
-});
+document.getElementById('importBtn').addEventListener('click',()=>{ document.getElementById('importFile').click(); });
 document.getElementById('importFile').addEventListener('change', async (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
+  const file = e.target.files[0]; if(!file) return;
   const reader = new FileReader();
   reader.onload = async ()=>{
     try{
@@ -536,13 +574,12 @@ document.getElementById('importFile').addEventListener('change', async (e)=>{
         if(existingIds.has(item.id)) continue;
         try{
           const created = await apiCreateItem({start:item.start,end:item.end||null,type:item.type,title:item.title,note:item.note||''});
-          customEvents.push(created);
-          added++;
+          customEvents.push(created); added++;
         }catch(err){ failed++; }
       }
       cacheLocally();
-      renderCalendar();
-      renderNextUp();
+      overridesMap = buildOverridesMap(); trackOrders = buildTrackOrders();
+      renderCalendar(); renderNextUp(); renderListView();
       alert(added+' item(s) imported to the shared calendar.'+(failed?` ${failed} failed to sync (couldn't reach the API).`:''));
     }catch(err){
       alert('Could not read that file \u2014 make sure it\u2019s a JSON file exported from this calendar.');
@@ -551,23 +588,78 @@ document.getElementById('importFile').addEventListener('change', async (e)=>{
   };
   reader.readAsText(file);
 });
+function findCellForDate(dateStr){ return document.querySelector(`.day[data-date="${dateStr}"]`); }
 
-function findCellForDate(dateStr){
-  return document.querySelector(`.day[data-date="${dateStr}"]`);
+const moveModalOverlay = document.getElementById('moveModalOverlay');
+let movingRef = null;
+function openMoveModal(kind, origItem, eff){
+  movingRef = {kind, item: origItem};
+  const labelText = kind==='closure' ? `Closure: ${origItem.label}` : `School event: ${origItem.label}`;
+  document.getElementById('moveModalLabel').textContent = labelText;
+  const origD1 = toDate(origItem.start), origD2 = toDate(origItem.end||origItem.start);
+  document.getElementById('moveModalOrig').textContent = `Originally scheduled ${MONTHS[origD1.getMonth()]} ${origD1.getDate()}` + (origItem.end && origItem.end!==origItem.start ? ` \u2013 ${MONTHS[origD2.getMonth()]} ${origD2.getDate()}` : '');
+  document.getElementById('mDateStart').value = eff.start;
+  document.getElementById('mDateEnd').value = eff.end && eff.end!==eff.start ? eff.end : '';
+  document.getElementById('moveResetBtn').style.display = eff._moved ? 'inline-block' : 'none';
+  moveModalOverlay.classList.add('open');
+}
+function closeMoveModal(){ moveModalOverlay.classList.remove('open'); movingRef=null; }
+document.getElementById('moveCancelBtn').addEventListener('click', closeMoveModal);
+moveModalOverlay.addEventListener('click',(e)=>{ if(e.target===moveModalOverlay) closeMoveModal(); });
+document.getElementById('moveSaveBtn').addEventListener('click', async ()=>{
+  if(!movingRef) return;
+  const newStart = document.getElementById('mDateStart').value;
+  const newEnd = document.getElementById('mDateEnd').value;
+  if(!newStart){ alert('Pick a date.'); return; }
+  await saveOverride(movingRef.kind, movingRef.item, newStart, newEnd||newStart);
+  closeMoveModal();
+});
+document.getElementById('moveResetBtn').addEventListener('click', async ()=>{
+  if(!movingRef) return;
+  const key = refKeyFor(movingRef.kind, movingRef.item);
+  const ov = overridesMap[key];
+  if(ov){
+    try{ await apiDeleteItem(ov.id); setOnlineStatus(true); }catch(e){ setOnlineStatus(false); }
+    customEvents = customEvents.filter(c=>c.id!==ov.id);
+    cacheLocally();
+    overridesMap = buildOverridesMap();
+  }
+  closeMoveModal();
+  renderCalendar(); renderNextUp(); renderListView();
+});
+async function saveOverride(kind, origItem, newStart, newEnd){
+  const key = refKeyFor(kind, origItem);
+  const existing = overridesMap[key];
+  const label = origItem.label;
+  const notePayload = JSON.stringify({refKey:key, origStart:origItem.start, origEnd:origItem.end||origItem.start, label});
+  const payload = {start:newStart, end:newEnd||null, type:'override', title:'Moved: '+label, note:notePayload};
+  try{
+    if(existing){
+      const updated = await apiUpdateItem(existing.id, payload);
+      const idx = customEvents.findIndex(c=>c.id===existing.id);
+      if(idx>-1) customEvents[idx]=updated; else customEvents.push(updated);
+    } else {
+      const created = await apiCreateItem(payload);
+      customEvents.push(created);
+    }
+    cacheLocally(); setOnlineStatus(true);
+  }catch(e){
+    if(existing){ Object.assign(existing,payload); } else { customEvents.push({id:uid(),...payload,pendingSync:true}); }
+    cacheLocally(); setOnlineStatus(false);
+  }
+  overridesMap = buildOverridesMap();
+  renderCalendar(); renderNextUp(); renderListView();
 }
 
-/* ---------- calendar state ---------- */
 const rangeStart = toDate('2026-08-01');
 const rangeEnd = toDate('2027-05-31');
 let today = new Date();
 let cursor;
 if (today>=rangeStart && today<=rangeEnd){ cursor = new Date(today.getFullYear(),today.getMonth(),1); }
-else { cursor = new Date(2026,8,1); } // default Sept 2026
+else { cursor = new Date(2026,8,1); }
 
 const dowRow=document.getElementById('dowRow');
-['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{
-  const el=document.createElement('div');el.className='dow';el.textContent=d;dowRow.appendChild(el);
-});
+['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{ const el=document.createElement('div');el.className='dow';el.textContent=d;dowRow.appendChild(el); });
 
 function renderCalendar(){
   document.getElementById('monthLabel').textContent = MONTHS[cursor.getMonth()]+' '+cursor.getFullYear();
@@ -576,44 +668,30 @@ function renderCalendar(){
   const y=cursor.getFullYear(), m=cursor.getMonth();
   const firstDow = new Date(y,m,1).getDay();
   const numDays = new Date(y,m+1,0).getDate();
-  for(let i=0;i<firstDow;i++){
-    const e=document.createElement('div');e.className='day empty';grid.appendChild(e);
-  }
+  for(let i=0;i<firstDow;i++){ const e=document.createElement('div');e.className='day empty';grid.appendChild(e); }
   for(let d=1;d<=numDays;d++){
     const dateObj = new Date(y,m,d);
     const dateStr = fmt(dateObj);
     const dow = dateObj.getDay();
     const cell=document.createElement('div');
-    cell.className='day';
-    cell.dataset.date=dateStr;
+    cell.className='day'; cell.dataset.date=dateStr;
     const wk = findWeek(dateStr);
     const closure = findClosure(dateStr);
     const ev = findEvent(dateStr);
     const custom = findCustom(dateStr);
     const isWeekday = dow!==0 && dow!==6;
-
     if(closure){ cell.classList.add('closed'); }
     if(ev){ cell.classList.add('special'); }
     if(wk && isWeekday && !closure){ cell.classList.add('school'); }
     if(custom.length){ cell.classList.add('custom','type-'+custom[0].type); }
-
     const num=document.createElement('div');num.className='num';num.textContent=d;cell.appendChild(num);
-
     if(wk && isWeekday && !closure){
       const badge=document.createElement('div');badge.className='badge';badge.textContent=wk.letter.split(' ')[0].slice(0,2);cell.appendChild(badge);
-      if(wk.chapel && wk.chapel.date===dateStr){
-        const star=document.createElement('div');star.className='star';star.textContent='\u2605';cell.appendChild(star);
-      }
+      if(wk.chapel && wk.chapel.date===dateStr){ const star=document.createElement('div');star.className='star';star.textContent='\u2605';cell.appendChild(star); }
     }
-    if(closure){
-      const t=document.createElement('span');t.className='tiny';t.textContent='closed';cell.appendChild(t);
-    } else if(ev){
-      const t=document.createElement('span');t.className='tiny';t.textContent=ev.label;cell.appendChild(t);
-    }
-    if(custom.length){
-      const t=document.createElement('span');t.className='tiny';t.textContent=custom.map(c=>c.title).join(', ');cell.appendChild(t);
-    }
-
+    if(closure){ const t=document.createElement('span');t.className='tiny';t.textContent='closed';cell.appendChild(t); }
+    else if(ev){ const t=document.createElement('span');t.className='tiny';t.textContent=ev.label;cell.appendChild(t); }
+    if(custom.length){ const t=document.createElement('span');t.className='tiny';t.textContent=custom.map(c=>c.title).join(', ');cell.appendChild(t); }
     cell.addEventListener('click',()=>selectDay(dateStr,cell));
     grid.appendChild(cell);
   }
@@ -631,17 +709,13 @@ function customItemsHtml(dateStr){
       </div>
     </div>`).join('');
 }
-function editCustomById(id){
-  const item = customEvents.find(c=>c.id===id);
-  if(item) openModal(item.start, item);
-}
+function editCustomById(id){ const item = customEvents.find(c=>c.id===id); if(item) openModal(item.start, item); }
 function deleteCustomById(id){
   if(!confirm('Delete this item?')) return;
   apiDeleteItem(id).then(()=>setOnlineStatus(true)).catch(()=>setOnlineStatus(false)).finally(()=>{
     customEvents = customEvents.filter(c=>c.id!==id);
     cacheLocally();
-    renderCalendar();
-    renderNextUp();
+    renderCalendar(); renderNextUp(); renderListView();
     const cell = findCellForDate(document.getElementById('detail').dataset.date);
     if(cell) selectDay(cell.dataset.date, cell);
   });
@@ -658,13 +732,14 @@ function selectDay(dateStr,cellEl){
   const d = toDate(dateStr);
   const dateHeader = `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
   const addRow = `<div class="addBtnRow"><button class="btn" onclick='openModal("${dateStr}",null)'>+ Add for this day</button></div>`;
-
   let curriculumHtml = '';
   if(wk){
     const chapelTag = wk.chapel ? '<span class="chapelflag">Chapel week</span>' : '';
+    const movedBits = [wk.letterMoved&&'Letter',wk.titleMoved&&'Title',wk.lessonMoved&&'Lesson',wk.descMoved&&'Description'].filter(Boolean);
+    const movedTag = movedBits.length ? `<span class="movedflag">${movedBits.join(', ')} moved</span>` : '';
     curriculumHtml = `
       <div class="datebar">${dateHeader} &middot; Week theme</div>
-      <h3>${wk.theme} ${chapelTag}</h3>
+      <h3>${wk.theme} ${chapelTag}${movedTag}</h3>
       <div class="row"><span class="k">Bible story</span><span>${wk.story}${wk.chapel?` (Chapel: ${new Date(wk.chapel.date+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})})`:''}</span></div>
       <div class="row"><span class="k">Character trait</span><span>${wk.trait}</span></div>
       <div class="row"><span class="k">Letter of the week</span><span>${wk.letter}</span></div>
@@ -672,52 +747,225 @@ function selectDay(dateStr,cellEl){
       <div class="row"><span class="k">Activity</span><span>${wk.activity}</span></div>
       ${ev?`<div class="row"><span class="k">Special event</span><span>${ev.label}</span></div>`:''}
       <div class="prepbox"><b>To have ready:</b> ${wk.prep}</div>
+      <div class="addBtnRow"><button class="btn" onclick='switchToList()'>&#8693; Rearrange in List View</button></div>
     `;
   } else {
-    curriculumHtml = `
-      <div class="datebar">${dateHeader}</div>
-      <h3>${closure ? closure.label : (ev ? ev.label : 'No class content scheduled')}</h3>
-    `;
+    curriculumHtml = `<div class="datebar">${dateHeader}</div><h3>${closure ? closure.label : (ev ? ev.label : 'No class content scheduled')}</h3>`;
+    if(closure){
+      const origC = closures.find(c=>c.start===closure._origStart);
+      curriculumHtml += `<div class="addBtnRow"><button class="btn" onclick='openMoveModal("closure", ${JSON.stringify(origC).replace(/'/g,"&#39;")}, ${JSON.stringify(closure).replace(/'/g,"&#39;")})'>&#8693; Move this closure</button></div>`;
+    } else if(ev){
+      const origE = specialEvents.find(e=>e.start===ev._origStart);
+      curriculumHtml += `<div class="addBtnRow"><button class="btn" onclick='openMoveModal("special", ${JSON.stringify(origE).replace(/'/g,"&#39;")}, ${JSON.stringify(ev).replace(/'/g,"&#39;")})'>&#8693; Move this event</button></div>`;
+    }
   }
-
   const customHtml = customItemsHtml(dateStr);
   detail.innerHTML = curriculumHtml + (customHtml ? `<div style="margin-top:16px;"><div class="k" style="font-weight:800;color:var(--pine);margin-bottom:8px;">Your items</div>${customHtml}</div>` : '') + addRow;
 }
+function switchToList(){ document.getElementById('tabList').click(); }
 
 document.getElementById('prevBtn').addEventListener('click',()=>{cursor=new Date(cursor.getFullYear(),cursor.getMonth()-1,1);renderCalendar();});
 document.getElementById('nextBtn').addEventListener('click',()=>{cursor=new Date(cursor.getFullYear(),cursor.getMonth()+1,1);renderCalendar();});
 
-/* ---------- Next Up panel ---------- */
 function renderNextUp(){
   const now = fmt(new Date());
   const items = [];
-  weeks.forEach(w=>{
-    items.push({date:w.start,title:`${w.theme} \u2014 Letter ${w.letter}`,note:w.prep});
-  });
-  specialEvents.forEach(e=>{
-    items.push({date:e.start,title:e.label,note:'Special event coming up \u2014 check for volunteer or supply needs.'});
-  });
-  customEvents.forEach(c=>{
+  effectiveWeeks().forEach(w=>{ items.push({date:w.start,title:`${w.theme} \u2014 Letter ${w.letter}`,note:w.prep}); });
+  effectiveSpecials().forEach(e=>{ items.push({date:e.start,title:e.label,note:'Special event coming up \u2014 check for volunteer or supply needs.'}); });
+  customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder').forEach(c=>{
     const labelType = c.type==='absence' ? 'Absence' : (c.type==='note' ? 'Note' : 'Your event');
     items.push({date:c.start,title:`${labelType}: ${c.title}`,note:c.note||'Added by you.'});
   });
   const upcoming = items.filter(i=>i.date>=now).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,3);
   const box = document.getElementById('nextup');
-  if(upcoming.length===0){
-    box.innerHTML = '<div class="tag">Coming up</div><p>Nothing scheduled after today in this calendar.</p>';
-    return;
-  }
+  if(upcoming.length===0){ box.innerHTML = '<div class="tag">Coming up</div><p>Nothing scheduled after today in this calendar.</p>'; return; }
   let html = '<div class="nextup-list">';
   upcoming.forEach(u=>{
     const d = toDate(u.date);
-    html += `<div class="nextup-item">
-      <div class="datebox"><span class="m">${MONTHS[d.getMonth()].slice(0,3)}</span><span class="d">${d.getDate()}</span></div>
-      <div><div class="tag" style="margin-bottom:2px;">Coming up</div><h3 style="margin:0 0 3px;">${u.title}</h3><div class="note">${u.note}</div></div>
-    </div>`;
+    html += `<div class="nextup-item"><div class="datebox"><span class="m">${MONTHS[d.getMonth()].slice(0,3)}</span><span class="d">${d.getDate()}</span></div><div><div class="tag" style="margin-bottom:2px;">Coming up</div><h3 style="margin:0 0 3px;">${u.title}</h3><div class="note">${u.note}</div></div></div>`;
   });
   html += '</div>';
   box.innerHTML = html;
 }
+
+function renderListView(){
+  const body = document.getElementById('listBody');
+  body.innerHTML = '';
+  const table = document.createElement('div');
+  table.className = 'ltable';
+  const head = document.createElement('div');
+  head.className = 'lhead';
+  ['Date','Letter','Title','Lesson','Description'].forEach(h=>{ const dd=document.createElement('div'); dd.textContent=h; head.appendChild(dd); });
+  table.appendChild(head);
+
+  const eWeeks = effectiveWeeks();
+  const eClosures = effectiveClosures();
+  const eSpecials = effectiveSpecials();
+  const eCustom = customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder');
+
+  const rows = [];
+  eWeeks.forEach(w=> rows.push({date:w.start, kind:'week', data:w}));
+  eClosures.forEach(c=> rows.push({date:c.start, kind:'closure', data:c}));
+  eSpecials.forEach(e=> rows.push({date:e.start, kind:'special', data:e}));
+  eCustom.forEach(c=> rows.push({date:c.start, kind:c.type, data:c}));
+  rows.sort((a,b)=> a.date.localeCompare(b.date));
+
+  if(!rows.length){ body.innerHTML = '<div class="list-empty">Nothing here yet.</div>'; return; }
+
+  let lastMonthKey = null;
+  rows.forEach(r=>{
+    const d = toDate(r.date);
+    const monthKey = d.getFullYear()+'-'+d.getMonth();
+    if(monthKey!==lastMonthKey){
+      const mh = document.createElement('div');
+      mh.className='month-heading';
+      mh.textContent = MONTHS[d.getMonth()]+' '+d.getFullYear();
+      table.appendChild(mh);
+      lastMonthKey = monthKey;
+    }
+    table.appendChild(buildTableRow(r));
+  });
+  body.appendChild(table);
+}
+
+function dateCellHtml(dateStr){
+  const d = toDate(dateStr);
+  return `<span class="handle">\u283F</span><b>${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}</b>`;
+}
+
+function buildTableRow(r){
+  const row = document.createElement('div');
+  row.className = 'lrow' + (r.kind==='week' ? '' : ' simple');
+
+  if(r.kind==='week'){
+    const w = r.data; const i = w.slotIndex;
+    const dateCell = makeCell('datecell draggable', dateCellHtml(w.start));
+    dateCell.draggable = true;
+    dateCell.dataset.row = i; dateCell.dataset.col = 'row';
+    wireDrag(dateCell, 'row', i);
+
+    const letterCell = makeCell('draggable', `<div class="lval"><span class="letterbadge">${w.letter.split(' ')[0].slice(0,2)}</span></div>`);
+    addSwapAffordance(letterCell,'letter',i,`Letter ${w.letter}`);
+    const titleCell = makeCell('draggable', `<div class="lval"><b>${w.theme}</b></div>`);
+    addSwapAffordance(titleCell,'title',i,w.theme);
+    const lessonCell = makeCell('draggable', `<div class="lval"><b>${w.story}${w.chapel?'<span class="chapelstar">\u2605</span>':''}</b><small>${w.trait}</small></div>`);
+    addSwapAffordance(lessonCell,'lesson',i,w.story);
+    const descCell = makeCell('draggable', `<div class="lval"><b>${w.book}</b><small>${w.activity}</small></div>`);
+    addSwapAffordance(descCell,'desc',i,w.book);
+
+    row.appendChild(dateCell); row.appendChild(letterCell); row.appendChild(titleCell); row.appendChild(lessonCell); row.appendChild(descCell);
+    return row;
+  }
+
+  const kindLabel = {closure:'Closed',special:'School event',event:'Event',absence:'Absence',note:'Note'}[r.kind] || r.kind;
+  const dateCell = makeCell('datecell', dateCellHtml(r.date));
+  const titleText = r.kind==='closure' || r.kind==='special' ? r.data.label : r.data.title;
+  const titleCell = makeCell('', `<div class="lval"><span class="simplabel">${titleText}</span><small>${kindLabel}${(r.kind!=='closure'&&r.kind!=='special'&&r.data.note)?' \u00b7 '+r.data.note:''}</small>
+    <div class="rowactions">
+      ${(r.kind==='closure'||r.kind==='special')?`<button onclick='openSimpleMove("${r.kind}","${r.data._origStart}")'>&#9998; Move</button>${r.data._moved?`<button onclick='resetSimpleMove("${r.kind}","${r.data._origStart}")'>&#8630; Reset</button>`:''}`:
+      `<button onclick='editCustomById("${r.data.id}")'>&#9998; Edit</button><button onclick='deleteCustomById("${r.data.id}")'>&#128465; Delete</button>`}
+    </div></div>`);
+  const blank1 = makeCell('','');
+  row.appendChild(dateCell); row.appendChild(blank1);
+  titleCell.style.gridColumn = '3 / span 3';
+  row.appendChild(titleCell);
+  return row;
+}
+function makeCell(cls, html){ const d=document.createElement('div'); d.className='lcell '+cls; d.innerHTML=html; return d; }
+function addSwapAffordance(cell, track, i, currentLabel){
+  cell.draggable = true;
+  cell.dataset.row = i; cell.dataset.col = track;
+  wireDrag(cell, track, i);
+  const btn = document.createElement('button');
+  btn.className='swapbtn'; btn.innerHTML='\u21C4'; btn.title='Swap with another week';
+  btn.addEventListener('click',(e)=>{ e.stopPropagation(); openSwapModal(track, i, currentLabel); });
+  cell.appendChild(btn);
+}
+function wireDrag(cell, col, i){
+  cell.addEventListener('dragstart',(e)=>{
+    cell.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', JSON.stringify({col,row:i}));
+    e.dataTransfer.effectAllowed='move';
+  });
+  cell.addEventListener('dragend',()=>cell.classList.remove('dragging'));
+  cell.addEventListener('dragover',(e)=>{ e.preventDefault(); cell.classList.add('dragover'); });
+  cell.addEventListener('dragleave',()=>cell.classList.remove('dragover'));
+  cell.addEventListener('drop', async (e)=>{
+    e.preventDefault(); cell.classList.remove('dragover');
+    let payload; try{ payload = JSON.parse(e.dataTransfer.getData('text/plain')); }catch(err){ return; }
+    if(!payload || payload.col!==col) return;
+    if(col==='row'){ await swapAllTracks(payload.row, i); }
+    else { await swapTrack(col, payload.row, i); }
+  });
+}
+
+function openSimpleMove(kind, origStart){
+  const origItem = kind==='closure' ? closures.find(c=>c.start===origStart) : specialEvents.find(e=>e.start===origStart);
+  const eff = kind==='closure' ? effectiveClosure(origItem) : effectiveSpecial(origItem);
+  openMoveModal(kind, origItem, eff);
+}
+async function resetSimpleMove(kind, origStart){
+  const origItem = kind==='closure' ? closures.find(c=>c.start===origStart) : specialEvents.find(e=>e.start===origStart);
+  const key = refKeyFor(kind, origItem);
+  const ov = overridesMap[key];
+  if(ov){
+    try{ await apiDeleteItem(ov.id); setOnlineStatus(true); }catch(e){ setOnlineStatus(false); }
+    customEvents = customEvents.filter(c=>c.id!==ov.id);
+    cacheLocally();
+    overridesMap = buildOverridesMap();
+    renderCalendar(); renderNextUp(); renderListView();
+  }
+}
+
+const swapModalOverlay = document.getElementById('swapModalOverlay');
+let swapCtx = null;
+const TRACK_LABEL = {letter:'Letter',title:'Title',lesson:'Lesson',desc:'Description'};
+function optionLabelFor(track, slotIdx){
+  const w = effectiveWeeks()[slotIdx];
+  const dd = toDate(w.start);
+  const prefix = `${MONTHS[dd.getMonth()].slice(0,3)} ${dd.getDate()}`;
+  if(track==='letter') return `${prefix} \u2014 Letter ${w.letter}`;
+  if(track==='title') return `${prefix} \u2014 ${w.theme}`;
+  if(track==='lesson') return `${prefix} \u2014 ${w.story}`;
+  return `${prefix} \u2014 ${w.book}`;
+}
+function openSwapModal(track, i, currentLabel){
+  swapCtx = {track, i};
+  document.getElementById('swapModalTitle').textContent = `Swap ${TRACK_LABEL[track]}`;
+  document.getElementById('swapModalCurrent').textContent = `Currently: ${currentLabel}`;
+  const sel = document.getElementById('swapSelect');
+  sel.innerHTML = '';
+  for(let k=0;k<N;k++){
+    if(k===i) continue;
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = optionLabelFor(track, k);
+    sel.appendChild(opt);
+  }
+  swapModalOverlay.classList.add('open');
+}
+document.getElementById('swapCancelBtn').addEventListener('click',()=>{ swapModalOverlay.classList.remove('open'); swapCtx=null; });
+swapModalOverlay.addEventListener('click',(e)=>{ if(e.target===swapModalOverlay){ swapModalOverlay.classList.remove('open'); swapCtx=null; } });
+document.getElementById('swapConfirmBtn').addEventListener('click', async ()=>{
+  if(!swapCtx) return;
+  const target = parseInt(document.getElementById('swapSelect').value,10);
+  await swapTrack(swapCtx.track, swapCtx.i, target);
+  swapModalOverlay.classList.remove('open'); swapCtx=null;
+});
+
+const tabCalendar = document.getElementById('tabCalendar');
+const tabList = document.getElementById('tabList');
+const calendarView = document.getElementById('calendarView');
+const listView = document.getElementById('listView');
+tabCalendar.addEventListener('click',()=>{
+  tabCalendar.classList.add('active'); tabList.classList.remove('active');
+  calendarView.classList.remove('hidden'); listView.classList.remove('active');
+});
+tabList.addEventListener('click',()=>{
+  tabList.classList.add('active'); tabCalendar.classList.remove('active');
+  calendarView.classList.add('hidden'); listView.classList.add('active');
+  renderListView();
+});
 
 renderCalendar();
 loadCustomEvents();
