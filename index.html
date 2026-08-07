@@ -99,6 +99,7 @@
   .day.custom.type-event .num::before{color:var(--sky);}
   .day.custom.type-absence .num::before{color:var(--coral);}
   .day.custom.type-note .num::before{color:var(--butter);}
+  .day.custom.type-lessonplan .num::before{color:var(--pine);}
   .day:not(.school){cursor:pointer;}
   .day:not(.school):hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.10);}
   .custom-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;}
@@ -107,6 +108,7 @@
   .ctype.event{background:var(--sky);}
   .ctype.absence{background:var(--coral);}
   .ctype.note{background:var(--butter);color:#6b4419;}
+  .ctype.lessonplan{background:var(--pine);}
   .custom-item .cactions{display:flex;gap:6px;}
   .custom-item .cactions button{border:none;background:none;cursor:pointer;font-size:13px;color:var(--pine);opacity:.7;}
   .custom-item .cactions button:hover{opacity:1;}
@@ -133,10 +135,15 @@
   .lhead{position:sticky;top:0;z-index:3;display:contents;}
   .lhead > div{background:var(--pine);color:var(--paper);font-family:'Fraunces',serif;font-weight:700;font-size:12.5px;padding:10px 8px;position:sticky;top:0;z-index:3;text-transform:uppercase;letter-spacing:.04em;}
   .month-heading{grid-column:1/-1;position:sticky;top:36px;z-index:2;font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:var(--pine);background:#e9eff8;padding:8px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .inlinePlanRow{grid-column:1/-1;background:#eef4fa;border-bottom:1px solid var(--line);padding:14px 10px 18px;}
+  .inlinePlanRow .planSheet{box-shadow:none;}
   .lrow{display:contents;}
   .lcell{border-bottom:1px solid var(--line);padding:8px 8px;font-size:12.5px;background:var(--paper);display:flex;align-items:flex-start;gap:5px;position:relative;}
   .lrow.simple .lcell{background:#f4f8fc;}
   .lcell.datecell{cursor:grab;font-weight:800;color:var(--pine);flex-direction:column;align-items:flex-start;gap:0;}
+  .lpToggleBtn{margin-top:4px;border:none;background:var(--card);color:var(--pine);font-size:9.5px;font-weight:800;letter-spacing:.02em;padding:2px 6px;border-radius:8px;cursor:pointer;white-space:nowrap;}
+  .lpToggleBtn:hover{background:var(--pine);color:#fff;}
+  .lpToggleBtn.open{background:var(--pine);color:#fff;}
   .lcell.datecell .handle{opacity:.4;font-size:12px;}
   .lcell.draggable{cursor:grab;}
   .lcell.draggable:hover{background:#e9eff8;}
@@ -155,6 +162,59 @@
   .rowactions button:hover{opacity:1;}
   .list-empty{padding:30px;text-align:center;opacity:.6;font-style:italic;}
   @media (max-width:640px){.ltable{min-width:640px;}}
+
+  /* ---- lesson planner ---- */
+  .plannerTopToolbar{gap:12px;}
+  .searchWrap{position:relative;flex:1;min-width:200px;}
+  .searchWrap input{width:100%;padding:9px 12px;border-radius:9px;border:1px solid var(--line);font-family:'Nunito',sans-serif;font-size:14px;background:#fff;}
+  .searchDropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 24px rgba(0,0,0,.12);max-height:280px;overflow-y:auto;z-index:20;}
+  .searchDropdown.open{display:block;}
+  .searchDropdown .sdItem{padding:9px 14px;cursor:pointer;font-size:13.5px;border-bottom:1px solid var(--line);}
+  .searchDropdown .sdItem:last-child{border-bottom:none;}
+  .searchDropdown .sdItem:hover{background:var(--card);}
+  .searchDropdown .sdItem b{display:block;}
+  .searchDropdown .sdItem small{opacity:.65;}
+  .searchDropdown .sdEmpty{padding:12px 14px;font-size:13px;opacity:.6;font-style:italic;}
+  .savedPlansPanel{margin:16px 22px 4px;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;}
+  .savedPlansHead{padding:10px 14px;font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:var(--pine-dark);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;}
+  .savedPlansCount{font-family:'Nunito',sans-serif;font-weight:700;font-size:11.5px;color:var(--pine);opacity:.75;}
+  .savedPlansList{max-height:190px;overflow-y:auto;}
+  .savedPlanItem{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;background:#fff;}
+  .savedPlanItem:last-child{border-bottom:none;}
+  .savedPlanItem:hover{background:var(--card);}
+  .savedPlanItem .spLeft b{font-size:13.5px;display:block;}
+  .savedPlanItem .spLeft small{font-size:11.5px;opacity:.65;}
+  .savedPlanItem .spActions{display:flex;gap:6px;flex-shrink:0;}
+  .savedPlanItem .spActions button{border:none;background:none;cursor:pointer;font-size:13px;color:var(--pine);opacity:.65;}
+  .savedPlanItem .spActions button:hover{opacity:1;}
+  .savedPlansEmpty{padding:16px;text-align:center;font-size:13px;opacity:.55;font-style:italic;}
+
+  .planner-body{padding:16px 16px 20px;}
+  .plannerEmptyState{padding:38px 20px;text-align:center;color:var(--pine-dark);opacity:.65;font-style:italic;}
+
+  .planSheet{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.05);}
+  .planSheet .planHead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  .planSheet .planHead h4{font-family:'Fraunces',serif;font-size:24px;margin:0;color:var(--pine-dark);}
+  .planSheet .planHead .planLinkTag{font-size:11.5px;font-weight:800;letter-spacing:.04em;color:var(--sky);}
+  .planGrid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;align-items:start;}
+  .planCol{display:flex;flex-direction:column;gap:12px;}
+  .planField{position:relative;border:1px solid var(--line);border-radius:10px;padding:14px 12px 10px;background:#fff;}
+  .planField .flabel{position:absolute;top:-9px;left:10px;background:#fff;padding:0 6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--pine);}
+  .planField.subjectField{background:var(--card);border-color:var(--line);}
+  .planField.subjectField .flabel{background:var(--card);}
+  .planField input, .planField textarea{width:100%;border:none;outline:none;font-family:'Nunito',sans-serif;font-size:14px;background:transparent;resize:vertical;padding:0;}
+  .planField textarea{min-height:70px;}
+  .planField.tall textarea{min-height:96px;}
+  .outlineWrap{position:relative;border:1px solid var(--line);border-radius:10px;padding:16px 0 4px;background:#fff;}
+  .outlineWrap .flabel{position:absolute;top:-9px;left:10px;background:#fff;padding:0 6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--pine);}
+  .outlineTable{width:100%;border-collapse:collapse;font-size:13px;}
+  .outlineTable td{border-top:1px solid var(--line);padding:6px 12px;vertical-align:middle;}
+  .outlineTable tr:first-child td{border-top:none;}
+  .outlineTable td.olabel{font-weight:800;color:var(--pine);width:36%;font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  .outlineTable td input{width:100%;border:none;outline:none;font-family:'Nunito',sans-serif;font-size:13.5px;padding:4px 0;background:transparent;}
+  .planFormActions{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .planFormActions .fillStatus{font-size:11.5px;opacity:.65;margin-right:auto;}
+  @media (max-width:720px){.planGrid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -178,6 +238,7 @@
     <div class="viewtabs">
       <button id="tabCalendar" class="active">Calendar</button>
       <button id="tabList">List View (table)</button>
+      <button id="tabPlanner">Lesson Planner</button>
     </div>
 
     <div id="calendarView">
@@ -194,6 +255,7 @@
         <span><span class="dot" style="background:var(--sky);border-radius:50%;"></span>My event</span>
         <span><span class="dot" style="background:var(--coral);border-radius:50%;"></span>Absence</span>
         <span><span class="dot" style="background:var(--butter);border-radius:50%;"></span>Note</span>
+        <span><span class="dot" style="background:var(--pine);border-radius:50%;"></span>Lesson plan</span>
       </div>
       <div class="toolbar">
         <button class="btn primary" id="addBtn">+ Add event / absence / note</button>
@@ -217,6 +279,21 @@
         <button class="btn primary small" id="addBtnList">+ Add event / absence / note</button>
       </div>
       <div class="list-body" id="listBody"></div>
+    </div>
+
+    <div id="plannerView">
+      <div class="toolbar plannerTopToolbar">
+        <div class="searchWrap">
+          <input type="text" id="plannerLessonSearch" placeholder="Search a scheduled lesson by theme, story, or letter..." autocomplete="off">
+          <div class="searchDropdown" id="plannerSearchDropdown"></div>
+        </div>
+        <button class="btn primary" id="newLessonPlanBtn">+ New Lesson Plan</button>
+      </div>
+      <div class="savedPlansPanel">
+        <div class="savedPlansHead">Saved Lesson Plans <span id="savedPlansCount" class="savedPlansCount"></span></div>
+        <div class="savedPlansList" id="savedPlansList"></div>
+      </div>
+      <div class="planner-body" id="plannerFormArea"></div>
     </div>
   </div>
 
@@ -281,38 +358,82 @@
 <script>
 /* ---------- BASE CONTENT DATA (source of truth; never mutated) ---------- */
 const weeks = [
-{start:'2026-09-02',end:'2026-09-04',letter:'A',theme:'Colors of Ice Cream',story:'Orientation week (God Made Me Special)',trait:'Welcome',book:'Pete the Cat: I Love My White Shoes',activity:'Ark craft, scissors practice',chapel:null,prep:'Welcome packet; ice-cream-color craft supplies.'},
-{start:'2026-09-07',end:'2026-09-11',letter:'B',theme:'Shapes in My World',story:'The Lord Is My Shepherd',trait:'Trust',book:'Mouse Shapes',activity:'Dot markers, shape cut-outs',chapel:null,prep:'Dot markers; shape cutouts.'},
-{start:'2026-09-14',end:'2026-09-18',letter:'C',theme:'God Made Me Special',story:'The 10 Plagues',trait:'Obedience',book:'Emma Kate',activity:'Self-portrait draw',chapel:null,prep:'Mirrors or photos for self-portraits.'},
-{start:'2026-09-21',end:'2026-09-25',letter:'D',theme:'Firefighters (lead-in)',story:'The Lost Sheep',trait:'Forgiveness',book:'Curious George and the Firefighters',activity:'Cotton-ball sheep craft',chapel:{date:'2026-09-23',story:'The Lost Sheep',trait:'Forgiveness'},prep:'Cotton balls for sheep craft; chapel is Wed the 23rd.'},
-{start:'2026-10-05',end:'2026-10-09',letter:'E',theme:'Firefighters',story:"Noah's Ark",trait:'Obedience',book:'Curious George and the Firefighters',activity:'Fiery crayon art',chapel:{date:'2026-10-07',story:"Noah's Ark",trait:'Obedience'},prep:'Fire-safety visuals; chapel is Wed the 7th.'},
-{start:'2026-10-12',end:'2026-10-16',letter:'F',theme:'Police Officers',story:'The Fiery Furnace',trait:'Courage',book:'What Do People Do All Day?',activity:'Scissors practice sheets',chapel:null,prep:'Scissors practice sheets.'},
-{start:'2026-10-19',end:'2026-10-23',letter:'G',theme:'Postal Workers',story:'Daniel in the Lions\u2019 Den',trait:'Courage',book:'Toot & Puddle',activity:'Lion mask craft',chapel:{date:'2026-10-21',story:'Daniel in the Lions\u2019 Den',trait:'Courage'},prep:'Paper plates for lion masks; chapel is Wed the 21st.'},
-{start:'2026-10-26',end:'2026-10-30',letter:'H',theme:'Pumpkins / Fall',story:'Elijah Fed by Birds',trait:'Faith',book:'Pumpkin Jack',activity:'Pumpkin painting, bird craft',chapel:null,prep:'Paint smocks; mini pumpkins if doing pumpkin painting.'},
-{start:'2026-11-04',end:'2026-11-06',letter:'I',theme:'Under the Sea',story:'Jonah',trait:'Integrity',book:'The Rainbow Fish',activity:'Whale/boat craft',chapel:{date:'2026-11-04',story:'Jonah',trait:'Integrity'},prep:'Blue paper/boat craft supplies; chapel is Wed the 4th (first day back after the 2nd-3rd off).'},
-{start:'2026-11-09',end:'2026-11-13',letter:'J',theme:'Community Helpers Wrap-up',story:"Elisha's Room",trait:'Generosity',book:'George and Martha: The Tooth',activity:'Dental hygiene kits',chapel:null,prep:'Goodies with Grands is Nov 10-11 this week \u2014 check for grandparent RSVP/snack needs.'},
-{start:'2026-11-16',end:'2026-11-20',letter:'K',theme:'Thankfulness',story:'The 10 Lepers',trait:'Thankful',book:'Gregory, the Terrible Eater',activity:'Thankful leaf craft',chapel:{date:'2026-11-18',story:'The 10 Lepers',trait:'Thankful'},prep:'Leaf cutouts for gratitude craft; chapel is Wed the 18th. No school Nov 23-27 (Thanksgiving).'},
-{start:'2026-11-30',end:'2026-12-04',letter:'L',theme:'Christmas Begins',story:'Jesus Is Born',trait:'Hope',book:'Silent Night (song/story)',activity:'Nativity craft',chapel:{date:'2026-12-02',story:'Jesus Is Born',trait:'Hope'},prep:'Nativity craft supplies; chapel is Wed Dec 2.'},
-{start:'2026-12-07',end:'2026-12-11',letter:'M',theme:'Christmas Program',story:'Mary\u2019s Gift for Jesus',trait:'Giving',book:'Mr. Putter & Tabby Bake the Cake',activity:'Shaving cream art, gift craft',chapel:null,prep:'Christmas Program is Fri Dec 11, 6:30pm \u2014 costumes/outfit & arrive early.'},
-{start:'2026-12-14',end:'2026-12-16',letter:'N',theme:'Christmas Wrap-up',story:'Review / class party',trait:'Love',book:'\u2014',activity:'Class party',chapel:null,prep:'Pack up belongings before break \u2014 last day before break is Wed Dec 16.'},
-{start:'2027-01-07',end:'2027-01-08',letter:'O',theme:'Winter / Snow',story:'Transition week (review)',trait:'\u2014',book:'Little Bear: What Will Little Bear Wear',activity:'Sensory snow bin',chapel:null,prep:'Sensory snow bin materials (salt/fake snow); first days back are Thu-Fri.'},
-{start:'2027-01-11',end:'2027-01-15',letter:'P',theme:'New Year, New Rules',story:'The 10 Commandments',trait:'Respect',book:'Classroom-rules themed book',activity:'Classroom rules chart',chapel:{date:'2027-01-13',story:'The 10 Commandments',trait:'Respect'},prep:'Chapel is Wed Jan 13.'},
-{start:'2027-01-19',end:'2027-01-22',letter:'Q',theme:'Doctors & Helpers',story:'Jesus Heals Their Friend',trait:'Kindness',book:'George and Martha: The Tooth',activity:'Doctor kit dress-up',chapel:null,prep:'No school Mon Jan 18 (MLK Day) \u2014 week starts Tuesday.'},
-{start:'2027-01-25',end:'2027-01-29',letter:'R',theme:'Being a Helper',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood',book:'Guess How Much I Love You',activity:'Helper badges',chapel:{date:'2027-01-27',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood'},prep:'Chapel is Wed Jan 27.'},
-{start:'2027-02-01',end:'2027-02-05',letter:'S',theme:'My Friends',story:'David and Jonathan',trait:'Friendship',book:'Peanut Butter & Cupcake!',activity:'Friendship bracelet craft',chapel:{date:'2027-02-03',story:'David and Jonathan',trait:'Friendship'},prep:'Bracelet-making supplies; chapel is Wed Feb 3.'},
-{start:'2027-02-08',end:'2027-02-11',letter:'T',theme:'My Family',story:'The Talents',trait:'Responsibility',book:'The Kissing Hand',activity:'Froot Loop patterns',chapel:null,prep:'Donuts with Dads is Feb 9-10 \u2014 check volunteer/RSVP needs. No school Fri Feb 12.'},
-{start:'2027-02-17',end:'2027-02-19',letter:'U',theme:'My Emotions',story:'God Provided Food',trait:'Self-Control',book:'The Color Monster',activity:'Emotion color jars',chapel:{date:'2027-02-17',story:'God Provided Food',trait:'Self-Control'},prep:'No school Feb 15-16 (Presidents Day). Chapel is Wed Feb 17, first day back.'},
-{start:'2027-02-22',end:'2027-02-26',letter:'V',theme:'Nutrition',story:'Review week',trait:'\u2014',book:'Gregory, the Terrible Eater',activity:'Healthy snack tasting',chapel:null,prep:'Healthy snack tasting \u2014 check for allergy list before sending food.'},
-{start:'2027-03-01',end:'2027-03-05',letter:'W',theme:'Perseverance / Sight',story:'Blind Bartimaeus',trait:'Perseverance',book:'Harry the Dirty Dog',activity:'Bubble art',chapel:{date:'2027-03-03',story:'Blind Bartimaeus',trait:'Perseverance'},prep:'Chapel is Wed Mar 3.'},
-{start:'2027-03-08',end:'2027-03-12',letter:'X',theme:'Spring Bash Prep',story:'Paul and Silas in Jail',trait:'Joy',book:'The Day Jimmy\u2019s Boa Ate the Wash',activity:'Coin patterns',chapel:null,prep:'Spring Bash is Fri Mar 12, 6:30pm \u2014 check volunteer signup.'},
-{start:'2027-03-15',end:'2027-03-18',letter:'Y',theme:'Easter',story:'Jesus\u2019 Death & Resurrection',trait:'Love',book:'Easter-themed story',activity:'Resurrection eggs craft',chapel:{date:'2027-03-17',story:'Jesus\u2019 Death/Resurrection',trait:'Love'},prep:'Resurrection eggs craft supplies; chapel is Wed Mar 17. Spring Break starts Fri Mar 19.'},
-{start:'2027-03-29',end:'2027-04-02',letter:'Z',theme:'Post-Easter Review \u2014 Alphabet Complete!',story:'The Wordless Book',trait:'Believe',book:'Franklin Goes to School',activity:'Gospel color-book craft',chapel:null,prep:'Back from Spring Break \u2014 first day is Mon Mar 29. Alphabet finishes this week!'},
-{start:'2027-04-05',end:'2027-04-08',letter:'Review A\u2013F',theme:'Under the Sea',story:'Jesus Walks on Water',trait:'Trust',book:'The Rainbow Fish',activity:'Water-walk sensory activity',chapel:{date:'2027-04-07',story:'Jesus Walks on Water',trait:'Trust'},prep:'Chapel is Wed Apr 7. No school Fri Apr 9.'},
-{start:'2027-04-12',end:'2027-04-16',letter:'Review G\u2013M',theme:'Bees, Bugs & Spiders',story:'King Josiah',trait:'Integrity',book:'Because a Little Bug Went Ka-Choo!',activity:'Spider-leg craft',chapel:null,prep:'Bug/spider craft materials.'},
-{start:'2027-04-19',end:'2027-04-23',letter:'Review N\u2013S',theme:'My Family (Moms)',story:"Naaman's Servant Girl",trait:'Kindness',book:'Guess How Much I Love You',activity:'Fingerpaint, kindness cards',chapel:null,prep:'Munchies with Moms is Apr 20-21 \u2014 check volunteer/RSVP needs.'},
-{start:'2027-04-28',end:'2027-04-30',letter:'Review T\u2013Z',theme:'Construction',story:'Tower of Babel',trait:'Humility',book:'Goodnight, Goodnight, Construction Site',activity:'Block tower craft',chapel:{date:'2027-04-28',story:'Tower of Babel',trait:'Humility'},prep:'No school Apr 26-27. Chapel is Wed Apr 28, first day back.'},
-{start:'2027-05-03',end:'2027-05-07',letter:'Full Review',theme:'Beach / Summer Send-off, Graduation',story:'Jesus Heals a Little Girl & The Rich Farmer',trait:'Faith / Contentment',book:'Olivia',activity:'Sand play, memory books',chapel:null,prep:'4K Graduation is Fri May 7, 6:30pm. Last days of preschool are May 6-7 \u2014 gather belongings, caps/gowns if used.'}
+{start:'2026-09-02',end:'2026-09-04',letter:'A',theme:'Colors of Ice Cream',story:'Orientation week (God Made Me Special)',trait:'Welcome',book:'Pete the Cat: I Love My White Shoes',activity:'Ark craft, scissors practice',chapel:null,prep:'Welcome packet; ice-cream-color craft supplies.',ci:null},
+{start:'2026-09-07',end:'2026-09-11',letter:'B',theme:'Shapes in My World',story:'The Lord Is My Shepherd',trait:'Trust',book:'Mouse Shapes',activity:'Dot markers, shape cut-outs',chapel:null,prep:'Dot markers; shape cutouts.',ci:7},
+{start:'2026-09-14',end:'2026-09-18',letter:'C',theme:'God Made Me Special',story:'The 10 Plagues',trait:'Obedience',book:'Emma Kate',activity:'Self-portrait draw',chapel:null,prep:'Mirrors or photos for self-portraits.',ci:3},
+{start:'2026-09-21',end:'2026-09-25',letter:'D',theme:'Firefighters (lead-in)',story:'The Lost Sheep',trait:'Forgiveness',book:'Curious George and the Firefighters',activity:'Cotton-ball sheep craft',chapel:{date:'2026-09-23',story:'The Lost Sheep',trait:'Forgiveness'},prep:'Cotton balls for sheep craft; chapel is Wed the 23rd.',ci:25},
+{start:'2026-10-05',end:'2026-10-09',letter:'E',theme:'Firefighters',story:"Noah's Ark",trait:'Obedience',book:'Curious George and the Firefighters',activity:'Fiery crayon art',chapel:{date:'2026-10-07',story:"Noah's Ark",trait:'Obedience'},prep:'Fire-safety visuals; chapel is Wed the 7th.',ci:1},
+{start:'2026-10-12',end:'2026-10-16',letter:'F',theme:'Police Officers',story:'The Fiery Furnace',trait:'Courage',book:'What Do People Do All Day?',activity:'Scissors practice sheets',chapel:null,prep:'Scissors practice sheets.',ci:15},
+{start:'2026-10-19',end:'2026-10-23',letter:'G',theme:'Postal Workers',story:'Daniel in the Lions\u2019 Den',trait:'Courage',book:'Toot & Puddle',activity:'Lion mask craft',chapel:{date:'2026-10-21',story:'Daniel in the Lions\u2019 Den',trait:'Courage'},prep:'Paper plates for lion masks; chapel is Wed the 21st.',ci:16},
+{start:'2026-10-26',end:'2026-10-30',letter:'H',theme:'Pumpkins / Fall',story:'Elijah Fed by Birds',trait:'Faith',book:'Pumpkin Jack',activity:'Pumpkin painting, bird craft',chapel:null,prep:'Paint smocks; mini pumpkins if doing pumpkin painting.',ci:10},
+{start:'2026-11-04',end:'2026-11-06',letter:'I',theme:'Under the Sea',story:'Jonah',trait:'Integrity',book:'The Rainbow Fish',activity:'Whale/boat craft',chapel:{date:'2026-11-04',story:'Jonah',trait:'Integrity'},prep:'Blue paper/boat craft supplies; chapel is Wed the 4th (first day back after the 2nd-3rd off).',ci:17},
+{start:'2026-11-09',end:'2026-11-13',letter:'J',theme:'Community Helpers Wrap-up',story:"Elisha's Room",trait:'Generosity',book:'George and Martha: The Tooth',activity:'Dental hygiene kits',chapel:null,prep:'Goodies with Grands is Nov 10-11 this week \u2014 check for grandparent RSVP/snack needs.',ci:11},
+{start:'2026-11-16',end:'2026-11-20',letter:'K',theme:'Thankfulness',story:'The 10 Lepers',trait:'Thankful',book:'Gregory, the Terrible Eater',activity:'Thankful leaf craft',chapel:{date:'2026-11-18',story:'The 10 Lepers',trait:'Thankful'},prep:'Leaf cutouts for gratitude craft; chapel is Wed the 18th. No school Nov 23-27 (Thanksgiving).',ci:26},
+{start:'2026-11-30',end:'2026-12-04',letter:'L',theme:'Christmas Begins',story:'Jesus Is Born',trait:'Hope',book:'Silent Night (song/story)',activity:'Nativity craft',chapel:{date:'2026-12-02',story:'Jesus Is Born',trait:'Hope'},prep:'Nativity craft supplies; chapel is Wed Dec 2.',ci:18},
+{start:'2026-12-07',end:'2026-12-11',letter:'M',theme:'Christmas Program',story:'Mary\u2019s Gift for Jesus',trait:'Giving',book:'Mr. Putter & Tabby Bake the Cake',activity:'Shaving cream art, gift craft',chapel:null,prep:'Christmas Program is Fri Dec 11, 6:30pm \u2014 costumes/outfit & arrive early.',ci:30},
+{start:'2026-12-14',end:'2026-12-16',letter:'N',theme:'Christmas Wrap-up',story:'Review / class party',trait:'Love',book:'\u2014',activity:'Class party',chapel:null,prep:'Pack up belongings before break \u2014 last day before break is Wed Dec 16.',ci:null},
+{start:'2027-01-07',end:'2027-01-08',letter:'O',theme:'Winter / Snow',story:'Transition week (review)',trait:'\u2014',book:'Little Bear: What Will Little Bear Wear',activity:'Sensory snow bin',chapel:null,prep:'Sensory snow bin materials (salt/fake snow); first days back are Thu-Fri.',ci:null},
+{start:'2027-01-11',end:'2027-01-15',letter:'P',theme:'New Year, New Rules',story:'The 10 Commandments',trait:'Respect',book:'Classroom-rules themed book',activity:'Classroom rules chart',chapel:{date:'2027-01-13',story:'The 10 Commandments',trait:'Respect'},prep:'Chapel is Wed Jan 13.',ci:6},
+{start:'2027-01-19',end:'2027-01-22',letter:'Q',theme:'Doctors & Helpers',story:'Jesus Heals Their Friend',trait:'Kindness',book:'George and Martha: The Tooth',activity:'Doctor kit dress-up',chapel:null,prep:'No school Mon Jan 18 (MLK Day) \u2014 week starts Tuesday.',ci:20},
+{start:'2027-01-25',end:'2027-01-29',letter:'R',theme:'Being a Helper',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood',book:'Guess How Much I Love You',activity:'Helper badges',chapel:{date:'2027-01-27',story:'Jesus Washes the Disciples\u2019 Feet',trait:'Servanthood'},prep:'Chapel is Wed Jan 27.',ci:31},
+{start:'2027-02-01',end:'2027-02-05',letter:'S',theme:'My Friends',story:'David and Jonathan',trait:'Friendship',book:'Peanut Butter & Cupcake!',activity:'Friendship bracelet craft',chapel:{date:'2027-02-03',story:'David and Jonathan',trait:'Friendship'},prep:'Bracelet-making supplies; chapel is Wed Feb 3.',ci:8},
+{start:'2027-02-08',end:'2027-02-11',letter:'T',theme:'My Family',story:'The Talents',trait:'Responsibility',book:'The Kissing Hand',activity:'Froot Loop patterns',chapel:null,prep:'Donuts with Dads is Feb 9-10 \u2014 check volunteer/RSVP needs. No school Fri Feb 12.',ci:28},
+{start:'2027-02-17',end:'2027-02-19',letter:'U',theme:'My Emotions',story:'God Provided Food',trait:'Self-Control',book:'The Color Monster',activity:'Emotion color jars',chapel:{date:'2027-02-17',story:'God Provided Food',trait:'Self-Control'},prep:'No school Feb 15-16 (Presidents Day). Chapel is Wed Feb 17, first day back.',ci:5},
+{start:'2027-02-22',end:'2027-02-26',letter:'V',theme:'Nutrition',story:'Review week',trait:'\u2014',book:'Gregory, the Terrible Eater',activity:'Healthy snack tasting',chapel:null,prep:'Healthy snack tasting \u2014 check for allergy list before sending food.',ci:null},
+{start:'2027-03-01',end:'2027-03-05',letter:'W',theme:'Perseverance / Sight',story:'Blind Bartimaeus',trait:'Perseverance',book:'Harry the Dirty Dog',activity:'Bubble art',chapel:{date:'2027-03-03',story:'Blind Bartimaeus',trait:'Perseverance'},prep:'Chapel is Wed Mar 3.',ci:27},
+{start:'2027-03-08',end:'2027-03-12',letter:'X',theme:'Spring Bash Prep',story:'Paul and Silas in Jail',trait:'Joy',book:'The Day Jimmy\u2019s Boa Ate the Wash',activity:'Coin patterns',chapel:null,prep:'Spring Bash is Fri Mar 12, 6:30pm \u2014 check volunteer signup.',ci:34},
+{start:'2027-03-15',end:'2027-03-18',letter:'Y',theme:'Easter',story:'Jesus\u2019 Death & Resurrection',trait:'Love',book:'Easter-themed story',activity:'Resurrection eggs craft',chapel:{date:'2027-03-17',story:'Jesus\u2019 Death/Resurrection',trait:'Love'},prep:'Resurrection eggs craft supplies; chapel is Wed Mar 17. Spring Break starts Fri Mar 19.',ci:32},
+{start:'2027-03-29',end:'2027-04-02',letter:'Z',theme:'Post-Easter Review \u2014 Alphabet Complete!',story:'The Wordless Book',trait:'Believe',book:'Franklin Goes to School',activity:'Gospel color-book craft',chapel:null,prep:'Back from Spring Break \u2014 first day is Mon Mar 29. Alphabet finishes this week!',ci:35},
+{start:'2027-04-05',end:'2027-04-08',letter:'Review A\u2013F',theme:'Under the Sea',story:'Jesus Walks on Water',trait:'Trust',book:'The Rainbow Fish',activity:'Water-walk sensory activity',chapel:{date:'2027-04-07',story:'Jesus Walks on Water',trait:'Trust'},prep:'Chapel is Wed Apr 7. No school Fri Apr 9.',ci:22},
+{start:'2027-04-12',end:'2027-04-16',letter:'Review G\u2013M',theme:'Bees, Bugs & Spiders',story:'King Josiah',trait:'Integrity',book:'Because a Little Bug Went Ka-Choo!',activity:'Spider-leg craft',chapel:null,prep:'Bug/spider craft materials.',ci:13},
+{start:'2027-04-19',end:'2027-04-23',letter:'Review N\u2013S',theme:'My Family (Moms)',story:"Naaman's Servant Girl",trait:'Kindness',book:'Guess How Much I Love You',activity:'Fingerpaint, kindness cards',chapel:null,prep:'Munchies with Moms is Apr 20-21 \u2014 check volunteer/RSVP needs.',ci:12},
+{start:'2027-04-28',end:'2027-04-30',letter:'Review T\u2013Z',theme:'Construction',story:'Tower of Babel',trait:'Humility',book:'Goodnight, Goodnight, Construction Site',activity:'Block tower craft',chapel:{date:'2027-04-28',story:'Tower of Babel',trait:'Humility'},prep:'No school Apr 26-27. Chapel is Wed Apr 28, first day back.',ci:2},
+{start:'2027-05-03',end:'2027-05-07',letter:'Full Review',theme:'Beach / Summer Send-off, Graduation',story:'Jesus Heals a Little Girl & The Rich Farmer',trait:'Faith / Contentment',book:'Olivia',activity:'Sand play, memory books',chapel:null,prep:'4K Graduation is Fri May 7, 6:30pm. Last days of preschool are May 6-7 \u2014 gather belongings, caps/gowns if used.',ci:21}
 ];
+
+// Full ABCJesusLovesMe 4-Year Curriculum scope & sequence (weeks 1-36 of the
+// published curriculum). Each class week links here via its `ci` (curriculum
+// index) field, which travels with the LESSON track (story/trait/chapel) if
+// that track gets dragged/swapped in List View, since the memory verse, song,
+// and poems belong to the Bible story, not to the calendar date slot.
+const curriculumSequence = {
+1:{verse:'James 1:22a',song:'Rise and Shine',ntBooks:'Matthew - 2 Corinthians',trait:'Obedience',misc:'Yes or No',letter:'Ll',num:'1',theme:'Colors of Ice Cream',poems:['Where is ___?'],mathSci:'Colors',bookWeek:'Pete the Cat: I Love My White Shoes',fine:'Ark Craft',gross:'Twister',visual:'Scissors Use'},
+2:{verse:'1 Peter 1:13a',song:'O Be Careful',ntBooks:'Matthew - 2 Corinthians',trait:'Humility',misc:'Yes or No',letter:'Ii',num:'',theme:'Shapes in My World',poems:['Where is ___?','A Shape is Like...'],mathSci:'Shapes',bookWeek:'Mouse Shapes',fine:'Scissors Use',gross:'Shape Walk',visual:'Color Tracking'},
+3:{verse:'Jeremiah 17:7',song:'My God is So Big',ntBooks:'Matthew - 2 Corinthians',trait:'Confidence',misc:'Days of the Week; Name: 3\u2033 Letters, Rhyming',letter:'Tt',num:'',theme:'God Made Me Special',poems:['I am Me','Teddy Bear, Teddy Bear'],mathSci:'Spatial',bookWeek:'Emma Kate',fine:'Dot Marker',gross:'Throw',visual:'Scissors Use'},
+4:{verse:'',song:'',ntBooks:'Galatians - 2 Thessalonians',trait:'Self-Control',misc:'Water Play',letter:'',num:'',theme:'Visit an Ice Cream Shop',poems:[],mathSci:'',bookWeek:'',fine:'Draw Me',gross:'Obstacle Course',visual:'Number Maze'},
+5:{verse:'1 Peter 1:13a',song:'O Be Careful',ntBooks:'Galatians - 2 Thessalonians',trait:'Respect',misc:'Phone Etiquette, Sentence Segmentation',letter:'F, E',num:'',theme:'Firefighters',poems:['The Wheels on the Fire Truck','Hurry, Hurry Fire Truck'],mathSci:'Fire Safety',bookWeek:'Curious George and the Firefighters',fine:'Fiery Crayons',gross:'Put the Fire Out',visual:'Firetruck Maze'},
+6:{verse:'Proverbs 19:20',song:'Trust and Obey',ntBooks:'Galatians - 2 Thessalonians',trait:'Gentleness',misc:'Phone Number; Name: 2\u2033 Letters',letter:'H',num:'4',theme:'Police Officers',poems:["I'm a Police Officer",'No, Go, Yell, Tell'],mathSci:'Recognizing Danger',bookWeek:'What Do People Do All Day?',fine:'Scissors Use',gross:'Mountain Climbing',visual:'Draw'},
+7:{verse:'Proverbs 15:1',song:"I'm His Little Lamb",ntBooks:'Matthew - 2 Thessalonians',trait:'Friendship',misc:'Phone Number, Combine Compound Words',letter:'Oo',num:'0',theme:'Postal Workers',poems:["He'll Be Coming",'A Tisket, A Tasket'],mathSci:'Postal System',bookWeek:'Toot & Puddle',fine:'Draw',gross:'Catch',visual:'Connect the Dots'},
+8:{verse:'Ephesians 4:32b',song:'Only a Boy Named David',ntBooks:'Matthew - 2 Thessalonians',trait:'',misc:'Dial Phone',letter:'Cc',num:'',theme:'Doctors and Dentists',poems:['This is the Way','Hand Washing Song'],mathSci:'Hygiene',bookWeek:'George and Martha: The Tooth',fine:'My Healthy Teeth',gross:'Towel Walk',visual:'Doctor Maze'},
+9:{verse:'',song:'My God is So Big',ntBooks:'1 Timothy - James',trait:'Faith',misc:'Handprint and Footprint/Math',letter:'',num:'',theme:'Visit a Fire/Police Station',poems:[],mathSci:'',bookWeek:'',fine:'Draw What I Draw',gross:'Memory Obstacle Course',visual:'Block Match'},
+10:{verse:'Proverbs 3:5a',song:"He's Got the Whole World",ntBooks:'1 Timothy - James',trait:'Generosity',misc:'12 Months; Name: 1\u2033 Letters',letter:'a, d',num:'',theme:'Bees, Bugs, and Spiders',poems:['Here is a Beehive','The Itsy Bitsy Spider'],mathSci:'Spring',bookWeek:'Because a Little Bug Went Ka-Choo!',fine:'Spider Legs',gross:'Gather Bugs',visual:'Block Talk'},
+11:{verse:'Matthew 7:12b',song:'This Little Light of Mine',ntBooks:'1 Timothy - James',trait:'Boldness',misc:'12 Months/Alliteration',letter:'Gg',num:'',theme:'Beaches',poems:['Silly Sally','Put on Sunscreen'],mathSci:'Summer',bookWeek:'Olivia',fine:'Sand Play',gross:'Kick',visual:'Match Shapes'},
+12:{verse:'Joshua 1:9b',song:'The B-I-B-L-E',ntBooks:'1 Timothy - James',trait:'Attentive',misc:'12 Months',letter:'Qq',num:'',theme:'Pumpkins',poems:['5 Little Pumpkins','Peter, Peter Pumpkin Eater'],mathSci:'Fall',bookWeek:'Pumpkin Jack',fine:'Paint',gross:'Pumpkin Rolling',visual:'Pumpkin Tracking'},
+13:{verse:'Proverbs 19:20',song:'',ntBooks:'Matthew - James',trait:'',misc:'12 Months, Separate Compound Words',letter:'D',num:'2',theme:'Snow',poems:['5 Little Snowmen',"I'm a Little Snowman"],mathSci:'Winter',bookWeek:'Little Bear: What Will Little Bear Wear',fine:'Sensory Snow',gross:'Throw',visual:'Roll a Snowman'},
+14:{verse:'',song:'God is So Good',ntBooks:'Matthew - James',trait:'Contentment',misc:'Tent Play/Bridge Building',letter:'',num:'',theme:'Visit a Seasonal Location',poems:[],mathSci:'',bookWeek:'',fine:'Draw My Family',gross:'Memory Obstacle Course',visual:'Sort by Color'},
+15:{verse:'Philippians 4:19a',song:'Trust and Obey',ntBooks:'Matthew - James',trait:'Courage',misc:'Address; Name: 1\u2033 Letters, Dots Only',letter:'Bb',num:'3',theme:'Birds in the Air',poems:['Wise Old Owl','I Saw a Little Bird'],mathSci:'Sort: Color/Subitizing',bookWeek:'There is a Bird on Your Head',fine:'Bird and Nest',gross:'Throw',visual:'Scissors Use'},
+16:{verse:'Joshua 1:9b',song:'Deep and Wide',ntBooks:'Matthew - James',trait:'Integrity',misc:'Address/Dial 911',letter:'Pp, R',num:'',theme:'Circus Fun',poems:['2 Silly Clowns','Puppet Clown'],mathSci:'Spatial: Left/Right',bookWeek:'The Little Engine that Could',fine:'Paint',gross:'Circus Fun',visual:'Pipe Cleaner Shapes'},
+17:{verse:'James 1:22a',song:'Silent Night',ntBooks:'Matthew - James',trait:'Hope',misc:'Address',letter:'Uu',num:'',theme:'Under the Sea',poems:['The Waves in the Sea','Once I Caught a Fish Alive'],mathSci:'Sort: Weight, Sink/Float',bookWeek:'The Rainbow Fish',fine:'Draw',gross:'Hug and Seek',visual:'Connect the Dots'},
+18:{verse:'John 3:16a',song:'',ntBooks:'',trait:'',misc:'Address',letter:'Jj',num:'',theme:'Old MacDonald',poems:['Old MacDonald Had a Farm','Baa, Baa, Black Sheep'],mathSci:'Spatial',bookWeek:'Click, Clack, Moo: Cows That Type',fine:'Candy Cane',gross:'Wheelbarrow Walk',visual:'Color Tracking'},
+19:{verse:'',song:'Happy All the Time',ntBooks:'1 Peter - Revelation',trait:'',misc:'Nature Sorting & Poster/Math (Assessment)',letter:'',num:'',theme:'Visit a Farm, Circus, Aquarium, or Bird Exhibit',poems:[],mathSci:'',bookWeek:'',fine:'Draw What I Draw',gross:'Memory Obstacle Course',visual:'Block Match'},
+20:{verse:'Matthew 7:12b',song:"If You're Happy and You Know It",ntBooks:'1 Peter - Revelation',trait:'Kindness',misc:'Voting/Name: 1\u2033 Letters, Green Dot Syllables',letter:'f',num:'6, 9',theme:'My Friends',poems:['Make New Friends','Jack and Jill'],mathSci:'Opposites/Counting',bookWeek:'Peanut Butter & Cupcake!',fine:'Penny Pickup',gross:'Opposite Movement',visual:'Jack and Jill Maze'},
+21:{verse:'Psalm 37:7a',song:"He's Got the Whole World",ntBooks:'1 Peter - Revelation',trait:'Patience',misc:'Culture/Blend Syllables',letter:'r, n',num:'',theme:'My Family',poems:['A Hug for You','Some Families'],mathSci:'Pattern: AB',bookWeek:'The Kissing Hand',fine:'Froot Loop Patterns',gross:'Streamer Dance',visual:'Patterns'},
+22:{verse:'Proverbs 3:5a',song:'Jesus Loves Me',ntBooks:'1 Peter - Revelation',trait:'Trust',misc:'Conflict Resolution',letter:'m, h',num:'',theme:'My Emotions',poems:["If You're Happy and You Know It",'Sometimes I Am...'],mathSci:'Emotions',bookWeek:'The Color Monster',fine:'Spray Bottle',gross:'Red Light, Green Light',visual:'Match Numbers'},
+23:{verse:'2 Corinthians 9:7c',song:'',ntBooks:'1 Peter - Revelation',trait:'Sharing',misc:'Earth Care/Divide Compound Words',letter:'e',num:'',theme:'Gardens',poems:['Mary, Mary, Quite Contrary','1 Potato, 2 Potato'],mathSci:'Pattern: ABA',bookWeek:"The Day Jimmy's Boa Ate the Wash",fine:'Coin Patterns',gross:'Simon Says',visual:'Patterns'},
+24:{verse:'',song:'',ntBooks:'',trait:'',misc:'Bake/Speed',letter:'',num:'',theme:'Visit a Garden',poems:[],mathSci:'',bookWeek:'',fine:'Draw My Family',gross:'Memory Obstacle Course',visual:'Block Match'},
+25:{verse:'Ephesians 4:32b',song:"God's Love is Like a Circle",ntBooks:'Matthew - Revelation',trait:'Forgiveness',misc:'My Orange Book, Phonological Awareness',letter:'Ss',num:'8',theme:'Construction',poems:['Construction Vehicles','Johnny Works with 1 Hammer'],mathSci:'Size',bookWeek:'Goodnight, Goodnight, Construction Site',fine:'Sand Play',gross:'Construction Play',visual:'Draw'},
+26:{verse:'Psalm 118:1a',song:"If You're Thankful and You Know It",ntBooks:'Matthew - Revelation',trait:'Thankful',misc:'My Red Book',letter:'A',num:'5',theme:'Nutrition',poems:['5 Red Apples','Little Miss Muffet'],mathSci:'Taste',bookWeek:'Gregory, the Terrible Eater',fine:'Pudding Paint',gross:'Catch',visual:'Block Go Fish'},
+27:{verse:'Jeremiah 17:7',song:'Happy All the Time',ntBooks:'Matthew - Revelation',trait:'Perseverance',misc:'My Blue Book',letter:'Vv',num:'',theme:'Bubbles',poems:['1 Little, 2 Little, 3 Little Bubbles','Bubbles, Bubbles Everywhere'],mathSci:'Sight',bookWeek:'Harry the Dirty Dog',fine:'Bubble Art',gross:'Bubble Play',visual:'Color Tracking'},
+28:{verse:'Colossians 3:23a',song:'This Little Light of Mine',ntBooks:'Matthew - Revelation',trait:'Responsible',misc:'My Yellow Book',letter:'Ww',num:'',theme:'Rain',poems:['I Hear Thunder',"It's Raining, It's Pouring"],mathSci:'Hearing',bookWeek:'Bedtime for Frances',fine:'Umbrella',gross:'Bat',visual:'Rain Maze'},
+29:{verse:'',song:'',ntBooks:'',trait:'',misc:'Bubble Party/Math',letter:'',num:'',theme:'Visit a Construction Site',poems:[],mathSci:'',bookWeek:'',fine:'Draw What I Draw',gross:'Memory Obstacle Course',visual:'Tracking'},
+30:{verse:'2 Corinthians 9:7c',song:'The B-I-B-L-E',ntBooks:'27 Books...',trait:'Giving',misc:'My Green Book/Delete Syllable',letter:'Xx',num:'',theme:'Cooking',poems:['Humpty Dumpty','Pease Porridge Hot'],mathSci:'Smell/Sorting',bookWeek:'Mr. Putter & Tabby Bake the Cake',fine:'Shaving Cream Art',gross:'Kick',visual:'Connect the Dots'},
+31:{verse:'Colossians 3:23a',song:'Deep and Wide',ntBooks:'27 Books...',trait:'Servanthood',misc:'My Purple Book',letter:'Yy',num:'',theme:'My Body',poems:['Head and Shoulders','Right Hand, Left Hand'],mathSci:'Touch',bookWeek:'Me and My Amazing Body',fine:'Fingerpaint',gross:'Beans Race',visual:'Roll a Me'},
+32:{verse:'John 3:16a',song:'Jesus Loves Me',ntBooks:'27 Books...',trait:'Love',misc:'My Brown Book',letter:'N, M',num:'',theme:'Being a Helper',poems:['Helping Hands','I Have 10 Fingers'],mathSci:'Sequencing: Directions',bookWeek:'Guess How Much I Love You',fine:'Pick Up',gross:'Cleaning',visual:'Sequencing Cards'},
+33:{verse:'',song:'',ntBooks:'',trait:'',misc:'Flower Bouquet/Water Race',letter:'',num:'',theme:'Visit a Place to Serve',poems:[],mathSci:'',bookWeek:'',fine:'Draw My Family',gross:'Memory Obstacle Course',visual:'Block Match'},
+34:{verse:'Philippians 4:19a',song:"I've Got the Joy, Joy, Joy",ntBooks:'Complete Song',trait:'Joy',misc:'My Black Book/Onset & Rime',letter:'Zz',num:'7',theme:'Transportation',poems:["I'm a Choo-Choo Train",'The Wheels on the Bus'],mathSci:'Sequencing: Schedule',bookWeek:'The Cat in the Hat',fine:'Ball and Chain',gross:'Transportation Play',visual:'Sequencing Cards'},
+35:{verse:'Acts 16:31a',song:"God's Love is Like a Circle",ntBooks:'Complete Song',trait:'Believe',misc:'My White Book',letter:'Kk',num:'',theme:'The Library',poems:['Read a Book','The More You Read'],mathSci:'Book Care',bookWeek:'Franklin Goes to School',fine:'Wordless Book Caterpillar',gross:'Bat',visual:'Matching Letters'},
+36:{verse:'',song:'',ntBooks:'',trait:'',misc:'Handprint and Footprint (Assessment)',letter:'',num:'',theme:'Celebration Field Trip',poems:[],mathSci:'',bookWeek:'',fine:'Draw What I Draw',gross:'Memory Obstacle Course',visual:'Blocks'}
+};
 
 const closures = [
 {start:'2026-09-07',end:'2026-09-07',label:'No Preschool \u2014 Labor Day'},
@@ -350,7 +471,7 @@ const N = weeks.length;
 const slots = weeks.map(w=>({start:w.start,end:w.end}));
 const letters = weeks.map(w=>w.letter);
 const titles = weeks.map(w=>w.theme);
-const lessons = weeks.map(w=>({story:w.story,trait:w.trait,chapel:w.chapel}));
+const lessons = weeks.map(w=>({story:w.story,trait:w.trait,chapel:w.chapel,ci:w.ci}));
 const descriptions = weeks.map(w=>({book:w.book,activity:w.activity,prep:w.prep}));
 const TRACKS = ['letter','title','lesson','desc'];
 function identityOrder(){ return Array.from({length:N},(_,i)=>i); }
@@ -362,7 +483,7 @@ function effectiveWeeks(){
     const les = lessons[si], desc = descriptions[di];
     return {
       start:slot.start, end:slot.end,
-      letter:letters[li], theme:titles[ti], story:les.story, trait:les.trait, chapel:les.chapel,
+      letter:letters[li], theme:titles[ti], story:les.story, trait:les.trait, chapel:les.chapel, ci:les.ci,
       book:desc.book, activity:desc.activity, prep:desc.prep,
       slotIndex:i,
       letterMoved: li!==i, titleMoved: ti!==i, lessonMoved: si!==i, descMoved: di!==i
@@ -396,7 +517,7 @@ function effectiveClosures(){ return closures.map(effectiveClosure); }
 function effectiveSpecials(){ return specialEvents.map(effectiveSpecial); }
 function findClosure(dateStr){return effectiveClosures().find(c=>inRange(dateStr,c.start,c.end||c.start));}
 function findEvent(dateStr){return effectiveSpecials().find(e=>inRange(dateStr,e.start,e.end||e.start));}
-function findCustom(dateStr){return customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder' && inRange(dateStr,c.start,c.end||c.start));}
+function findCustom(dateStr){return customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder' && (c.type!=='lessonplan' || isUnlinkedPlanItem(c)) && inRange(dateStr,c.start,c.end||c.start));}
 
 const API_BASE = 'https://svbp-calendar-api-dkcbfgbgbxgrh4gh.eastus-01.azurewebsites.net';
 const OFFLINE_CACHE_KEY = 'svbp_custom_events_cache_v1';
@@ -442,6 +563,7 @@ async function loadCustomEvents(){
   renderCalendar();
   renderNextUp();
   renderListView();
+  renderPlanner();
 }
 function uid(){ return 'c_'+Date.now()+'_'+Math.random().toString(36).slice(2,7); }
 
@@ -471,7 +593,7 @@ async function swapTrack(track, i, j){
   const tmp = arr[i]; arr[i]=arr[j]; arr[j]=tmp;
   trackOrders[track] = arr;
   await saveTrackOrder(track, arr);
-  renderCalendar(); renderNextUp(); renderListView();
+  renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
 }
 async function swapAllTracks(i,j){
   if(i===j) return;
@@ -481,7 +603,7 @@ async function swapAllTracks(i,j){
     trackOrders[t] = arr;
     await saveTrackOrder(t, arr);
   }
-  renderCalendar(); renderNextUp(); renderListView();
+  renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{});
@@ -542,7 +664,7 @@ document.getElementById('saveBtn').addEventListener('click', async ()=>{
   closeModal();
   const savedDate = toDate(start);
   cursor = new Date(savedDate.getFullYear(), savedDate.getMonth(), 1);
-  renderCalendar(); renderNextUp(); renderListView();
+  renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
   selectDay(start, findCellForDate(start));
 });
 
@@ -553,7 +675,7 @@ document.getElementById('deleteBtn').addEventListener('click', async ()=>{
   customEvents = customEvents.filter(c=>c.id!==editingId);
   cacheLocally();
   closeModal();
-  renderCalendar(); renderNextUp(); renderListView();
+  renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
 });
 
 document.getElementById('exportBtn').addEventListener('click',()=>{
@@ -579,7 +701,7 @@ document.getElementById('importFile').addEventListener('change', async (e)=>{
       }
       cacheLocally();
       overridesMap = buildOverridesMap(); trackOrders = buildTrackOrders();
-      renderCalendar(); renderNextUp(); renderListView();
+      renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
       alert(added+' item(s) imported to the shared calendar.'+(failed?` ${failed} failed to sync (couldn't reach the API).`:''));
     }catch(err){
       alert('Could not read that file \u2014 make sure it\u2019s a JSON file exported from this calendar.');
@@ -625,7 +747,7 @@ document.getElementById('moveResetBtn').addEventListener('click', async ()=>{
     overridesMap = buildOverridesMap();
   }
   closeMoveModal();
-  renderCalendar(); renderNextUp(); renderListView();
+  renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
 });
 async function saveOverride(kind, origItem, newStart, newEnd){
   const key = refKeyFor(kind, origItem);
@@ -648,7 +770,7 @@ async function saveOverride(kind, origItem, newStart, newEnd){
     cacheLocally(); setOnlineStatus(false);
   }
   overridesMap = buildOverridesMap();
-  renderCalendar(); renderNextUp(); renderListView();
+  renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
 }
 
 const rangeStart = toDate('2026-08-01');
@@ -691,7 +813,7 @@ function renderCalendar(){
     }
     if(closure){ const t=document.createElement('span');t.className='tiny';t.textContent='closed';cell.appendChild(t); }
     else if(ev){ const t=document.createElement('span');t.className='tiny';t.textContent=ev.label;cell.appendChild(t); }
-    if(custom.length){ const t=document.createElement('span');t.className='tiny';t.textContent=custom.map(c=>c.title).join(', ');cell.appendChild(t); }
+    if(custom.length){ const t=document.createElement('span');t.className='tiny';t.textContent=custom.map(c=>c.type==='lessonplan'?lessonPlanDisplayTitle(c):c.title).join(', ');cell.appendChild(t); }
     cell.addEventListener('click',()=>selectDay(dateStr,cell));
     grid.appendChild(cell);
   }
@@ -700,22 +822,37 @@ function renderCalendar(){
 function customItemsHtml(dateStr){
   const items = findCustom(dateStr);
   if(!items.length) return '';
-  return items.map(c=>`
+  return items.map(c=>{
+    if(c.type==='lessonplan'){
+      const parsed = parsePlanNote(c);
+      const sub = parsed.lesson && parsed.lesson!==lessonPlanDisplayTitle(c) ? parsed.lesson : (parsed.unitModule||'');
+      return `
+    <div class="custom-item">
+      <div class="cleft"><span class="ctype lessonplan">lesson plan</span><b>${esc(lessonPlanDisplayTitle(c))}</b>${sub?`<br><span style="font-size:13px;opacity:.75;">${esc(sub)}</span>`:''}</div>
+      <div class="cactions">
+        <button title="Edit in Lesson Planner" onclick='editLessonPlanFromCalendar("${c.id}")'>&#9998;</button>
+        <button title="Delete" onclick='deleteCustomById("${c.id}")'>&#128465;</button>
+      </div>
+    </div>`;
+    }
+    return `
     <div class="custom-item">
       <div class="cleft"><span class="ctype ${c.type}">${c.type}</span><b>${c.title}</b>${c.note?`<br><span style="font-size:13px;opacity:.75;">${c.note}</span>`:''}${c.end?`<br><span style="font-size:12px;opacity:.6;">Through ${c.end}</span>`:''}</div>
       <div class="cactions">
         <button title="Edit" onclick='editCustomById("${c.id}")'>&#9998;</button>
         <button title="Delete" onclick='deleteCustomById("${c.id}")'>&#128465;</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 function editCustomById(id){ const item = customEvents.find(c=>c.id===id); if(item) openModal(item.start, item); }
+function editLessonPlanFromCalendar(id){ showTab('planner'); loadSavedPlanById(id); }
 function deleteCustomById(id){
   if(!confirm('Delete this item?')) return;
   apiDeleteItem(id).then(()=>setOnlineStatus(true)).catch(()=>setOnlineStatus(false)).finally(()=>{
     customEvents = customEvents.filter(c=>c.id!==id);
     cacheLocally();
-    renderCalendar(); renderNextUp(); renderListView();
+    renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
     const cell = findCellForDate(document.getElementById('detail').dataset.date);
     if(cell) selectDay(cell.dataset.date, cell);
   });
@@ -772,7 +909,11 @@ function renderNextUp(){
   const items = [];
   effectiveWeeks().forEach(w=>{ items.push({date:w.start,title:`${w.theme} \u2014 Letter ${w.letter}`,note:w.prep}); });
   effectiveSpecials().forEach(e=>{ items.push({date:e.start,title:e.label,note:'Special event coming up \u2014 check for volunteer or supply needs.'}); });
-  customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder').forEach(c=>{
+  customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder' && (c.type!=='lessonplan' || isUnlinkedPlanItem(c))).forEach(c=>{
+    if(c.type==='lessonplan'){
+      items.push({date:c.start,title:`Lesson Plan: ${lessonPlanDisplayTitle(c)}`,note:'Manually attached lesson plan \u2014 open the Lesson Planner tab to edit.'});
+      return;
+    }
     const labelType = c.type==='absence' ? 'Absence' : (c.type==='note' ? 'Note' : 'Your event');
     items.push({date:c.start,title:`${labelType}: ${c.title}`,note:c.note||'Added by you.'});
   });
@@ -801,7 +942,7 @@ function renderListView(){
   const eWeeks = effectiveWeeks();
   const eClosures = effectiveClosures();
   const eSpecials = effectiveSpecials();
-  const eCustom = customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder');
+  const eCustom = customEvents.filter(c=>c.type!=='override' && c.type!=='trackorder' && (c.type!=='lessonplan' || isUnlinkedPlanItem(c)));
 
   const rows = [];
   eWeeks.forEach(w=> rows.push({date:w.start, kind:'week', data:w}));
@@ -813,6 +954,7 @@ function renderListView(){
   if(!rows.length){ body.innerHTML = '<div class="list-empty">Nothing here yet.</div>'; return; }
 
   let lastMonthKey = null;
+  let inlinePlanInserted = false;
   rows.forEach(r=>{
     const d = toDate(r.date);
     const monthKey = d.getFullYear()+'-'+d.getMonth();
@@ -824,13 +966,18 @@ function renderListView(){
       lastMonthKey = monthKey;
     }
     table.appendChild(buildTableRow(r));
+    if(expandedPlanDate === r.date && !inlinePlanInserted){
+      table.appendChild(buildInlinePlanRow(r.date));
+      inlinePlanInserted = true;
+    }
   });
   body.appendChild(table);
 }
 
 function dateCellHtml(dateStr){
   const d = toDate(dateStr);
-  return `<span class="handle">\u283F</span><b>${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}</b>`;
+  const isOpen = expandedPlanDate === dateStr;
+  return `<span class="handle">\u283F</span><b>${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}</b><button type="button" class="lpToggleBtn${isOpen?' open':''}" onclick='event.stopPropagation();toggleInlinePlan("${dateStr}")'>${isOpen?'\u2212 Lesson Plan':'+ Lesson Plan'}</button>`;
 }
 
 function buildTableRow(r){
@@ -857,13 +1004,15 @@ function buildTableRow(r){
     return row;
   }
 
-  const kindLabel = {closure:'Closed',special:'School event',event:'Event',absence:'Absence',note:'Note'}[r.kind] || r.kind;
+  const kindLabel = {closure:'Closed',special:'School event',event:'Event',absence:'Absence',note:'Note',lessonplan:'Lesson Plan'}[r.kind] || r.kind;
   const dateCell = makeCell('datecell', dateCellHtml(r.date));
-  const titleText = r.kind==='closure' || r.kind==='special' ? r.data.label : r.data.title;
-  const titleCell = makeCell('', `<div class="lval"><span class="simplabel">${titleText}</span><small>${kindLabel}${(r.kind!=='closure'&&r.kind!=='special'&&r.data.note)?' \u00b7 '+r.data.note:''}</small>
+  const titleText = r.kind==='closure' || r.kind==='special' ? r.data.label : (r.kind==='lessonplan' ? esc(lessonPlanDisplayTitle(r.data)) : r.data.title);
+  const noteText = r.kind==='lessonplan' ? '' : r.data.note;
+  const titleCell = makeCell('', `<div class="lval"><span class="simplabel">${titleText}</span><small>${kindLabel}${(r.kind!=='closure'&&r.kind!=='special'&&r.kind!=='lessonplan'&&noteText)?' \u00b7 '+noteText:''}</small>
     <div class="rowactions">
       ${(r.kind==='closure'||r.kind==='special')?`<button onclick='openSimpleMove("${r.kind}","${r.data._origStart}")'>&#9998; Move</button>${r.data._moved?`<button onclick='resetSimpleMove("${r.kind}","${r.data._origStart}")'>&#8630; Reset</button>`:''}`:
-      `<button onclick='editCustomById("${r.data.id}")'>&#9998; Edit</button><button onclick='deleteCustomById("${r.data.id}")'>&#128465; Delete</button>`}
+      (r.kind==='lessonplan'?`<button onclick='editLessonPlanFromCalendar("${r.data.id}")'>&#9998; Edit in Planner</button><button onclick='deleteCustomById("${r.data.id}")'>&#128465; Delete</button>`:
+      `<button onclick='editCustomById("${r.data.id}")'>&#9998; Edit</button><button onclick='deleteCustomById("${r.data.id}")'>&#128465; Delete</button>`)}
     </div></div>`);
   const blank1 = makeCell('','');
   row.appendChild(dateCell); row.appendChild(blank1);
@@ -913,7 +1062,7 @@ async function resetSimpleMove(kind, origStart){
     customEvents = customEvents.filter(c=>c.id!==ov.id);
     cacheLocally();
     overridesMap = buildOverridesMap();
-    renderCalendar(); renderNextUp(); renderListView();
+    renderCalendar(); renderNextUp(); renderListView(); renderPlanner();
   }
 }
 
@@ -955,17 +1104,383 @@ document.getElementById('swapConfirmBtn').addEventListener('click', async ()=>{
 
 const tabCalendar = document.getElementById('tabCalendar');
 const tabList = document.getElementById('tabList');
+const tabPlanner = document.getElementById('tabPlanner');
 const calendarView = document.getElementById('calendarView');
 const listView = document.getElementById('listView');
-tabCalendar.addEventListener('click',()=>{
-  tabCalendar.classList.add('active'); tabList.classList.remove('active');
-  calendarView.classList.remove('hidden'); listView.classList.remove('active');
-});
-tabList.addEventListener('click',()=>{
-  tabList.classList.add('active'); tabCalendar.classList.remove('active');
-  calendarView.classList.add('hidden'); listView.classList.add('active');
+const plannerView = document.getElementById('plannerView');
+function showTab(which){
+  tabCalendar.classList.toggle('active', which==='calendar');
+  tabList.classList.toggle('active', which==='list');
+  tabPlanner.classList.toggle('active', which==='planner');
+  calendarView.classList.toggle('hidden', which!=='calendar');
+  listView.classList.toggle('active', which==='list');
+  plannerView.classList.toggle('active', which==='planner');
+  if(which==='list') renderListView();
+  if(which==='planner') renderPlanner();
+}
+tabCalendar.addEventListener('click',()=>showTab('calendar'));
+tabList.addEventListener('click',()=>showTab('list'));
+tabPlanner.addEventListener('click',()=>showTab('planner'));
+
+/* ---------- Lesson Planner ---------- */
+// Lesson plans reuse the SAME /api/items store as everything else in this
+// app (event/absence/note/override/trackorder), following the convention
+// 'override' and 'trackorder' already use: a dedicated `type` ("lessonplan")
+// with the full structured plan JSON-encoded in `note`. `start` is the date
+// the plan is attached to on the calendar; `title` is a stable unique key —
+// either the scheduled week's start date (one plan per scheduled week) or a
+// generated id for a plan not tied to any scheduled week. No backend changes
+// needed.
+function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function weekDateRange(w){
+  const s = toDate(w.start), e = toDate(w.end||w.start);
+  const sameMonth = s.getMonth()===e.getMonth();
+  const opts = {month:'short',day:'numeric'};
+  return sameMonth
+    ? `${s.toLocaleDateString('en-US',opts)}\u2013${e.getDate()}, ${e.getFullYear()}`
+    : `${s.toLocaleDateString('en-US',opts)} \u2013 ${e.toLocaleDateString('en-US',opts)}, ${e.getFullYear()}`;
+}
+
+function getAllLessonPlans(){ return customEvents.filter(c=>c.type==='lessonplan'); }
+function getLessonPlanByKey(key){ return customEvents.find(c=>c.type==='lessonplan' && c.title===key); }
+function parsePlanNote(item){ try{ return JSON.parse(item.note||'{}'); }catch(e){ return {}; } }
+function isUnlinkedPlanItem(c){
+  if(c.type!=='lessonplan') return false;
+  return !parsePlanNote(c).linkedWeekStart;
+}
+function lessonPlanDisplayTitle(item){
+  const parsed = parsePlanNote(item);
+  return parsed.subject || parsed.lesson || 'Untitled lesson plan';
+}
+
+// currentPlan holds the form's live state. null = nothing selected (blank state).
+let currentPlan = null; // { key, editingId, attachDate, linkedWeekStart, subject, unitModule, lesson, objectives, memoryVerse, bibleSong, letterWeek, bookWeek, activity, topics, resources, homework, notes }
+
+function blankPlan(){
+  return {
+    key: null, editingId: null, attachDate: fmt(new Date()), linkedWeekStart: null,
+    subject:'', unitModule:'', lesson:'', objectives:'',
+    memoryVerse:'', bibleSong:'', letterWeek:'', bookWeek:'', activity:'',
+    topics:'', resources:'', homework:'', notes:''
+  };
+}
+
+function planFromScheduledWeek(w){
+  const ref = (w.ci!=null) ? curriculumSequence[w.ci] : null;
+  const saved = getLessonPlanByKey(w.start);
+  if(saved){
+    const parsed = parsePlanNote(saved);
+    return Object.assign(blankPlan(), parsed, { key:w.start, editingId:saved.id, attachDate:saved.start, linkedWeekStart:w.start });
+  }
+  // No saved plan yet for this scheduled week — prefill from the calendar + curriculum data.
+  const topics = [
+    ref&&ref.poems&&ref.poems.length?`Poems: ${ref.poems.join(' \u00b7 ')}`:'',
+    ref&&ref.num?`Number: ${ref.num}`:'',
+    ref&&ref.misc?`Misc. learning: ${ref.misc}`:''
+  ].filter(Boolean).join('\n');
+  const objectives = [
+    `Character trait: ${w.trait}`,
+    ref&&ref.ntBooks?`NT reading: ${ref.ntBooks}`:''
+  ].filter(Boolean).join('\n');
+  return Object.assign(blankPlan(), {
+    key:w.start, editingId:null, attachDate:w.start, linkedWeekStart:w.start,
+    subject:w.theme||'', unitModule:`Week ${w.slotIndex+1}${ref?` \u00b7 Curriculum Wk ${w.ci}`:''} \u00b7 Letter ${w.letter||''}`,
+    lesson:w.story||'', objectives,
+    memoryVerse: ref?ref.verse:'', bibleSong: ref?ref.song:'', letterWeek: w.letter||'', bookWeek: w.book||'', activity: w.activity||'',
+    topics, resources:`Book: ${w.book||''}`, homework: w.prep||'', notes:''
+  });
+}
+
+// Every lesson plan is keyed by the date it's attached to ("one plan per
+// day"), whether that date belongs to a scheduled week or was picked
+// manually. This resolves the plan (saved-if-it-exists, prefilled-from-the-
+// schedule-if-not, blank-otherwise) for any date on the calendar — used by
+// both the Lesson Planner tab's search/select and List View's inline toggle.
+function planStateForDate(date){
+  const w = effectiveWeeks().find(x=>x.start===date);
+  if(w) return planFromScheduledWeek(w);
+  const existing = getLessonPlanByKey(date);
+  if(existing){
+    const parsed = parsePlanNote(existing);
+    return Object.assign(blankPlan(), parsed, { key:date, editingId:existing.id, attachDate:existing.start, linkedWeekStart: parsed.linkedWeekStart||null });
+  }
+  return Object.assign(blankPlan(), { key:date, attachDate:date, linkedWeekStart:null });
+}
+
+function renderSavedPlansList(){
+  const list = document.getElementById('savedPlansList');
+  const countEl = document.getElementById('savedPlansCount');
+  const plans = getAllLessonPlans().slice().sort((a,b)=>a.start.localeCompare(b.start));
+  countEl.textContent = plans.length ? `(${plans.length})` : '';
+  if(!plans.length){
+    list.innerHTML = '<div class="savedPlansEmpty">No lesson plans saved yet.</div>';
+    return;
+  }
+  list.innerHTML = plans.map(item=>{
+    const parsed = parsePlanNote(item);
+    const d = toDate(item.start);
+    const dateLabel = `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}`;
+    const label = parsed.subject || parsed.lesson || 'Untitled lesson';
+    return `<div class="savedPlanItem" data-id="${item.id}">
+      <div class="spLeft"><b>${esc(label)}</b><small>${dateLabel}${parsed.linkedWeekStart?'':' \u00b7 not on schedule'}</small></div>
+      <div class="spActions">
+        <button title="Edit" class="spEdit" data-id="${item.id}">&#9998;</button>
+        <button title="Delete" class="spDelete" data-id="${item.id}">&#128465;</button>
+      </div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.savedPlanItem').forEach(row=>{
+    row.addEventListener('click',(e)=>{ if(e.target.closest('.spActions')) return; loadSavedPlanById(row.dataset.id); });
+  });
+  list.querySelectorAll('.spEdit').forEach(btn=>btn.addEventListener('click',(e)=>{ e.stopPropagation(); loadSavedPlanById(btn.dataset.id); }));
+  list.querySelectorAll('.spDelete').forEach(btn=>btn.addEventListener('click', async (e)=>{
+    e.stopPropagation();
+    if(!confirm('Delete this lesson plan?')) return;
+    try{ await apiDeleteItem(btn.dataset.id); setOnlineStatus(true); }catch(err){ setOnlineStatus(false); }
+    customEvents = customEvents.filter(c=>c.id!==btn.dataset.id);
+    cacheLocally();
+    if(currentPlan && currentPlan.editingId===btn.dataset.id){ currentPlan=null; renderPlanForm(); }
+    if(expandedPlanState && expandedPlanState.editingId===btn.dataset.id){ expandedPlanDate=null; expandedPlanState=null; }
+    renderSavedPlansList();
+    renderListView();
+  }));
+}
+
+function loadSavedPlanById(id){
+  const item = customEvents.find(c=>c.id===id && c.type==='lessonplan');
+  if(!item) return;
+  const parsed = parsePlanNote(item);
+  currentPlan = Object.assign(blankPlan(), parsed, { key:item.title, editingId:item.id, attachDate:item.start, linkedWeekStart: parsed.linkedWeekStart||null });
+  renderPlanForm();
+  document.getElementById('plannerFormArea').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function selectScheduledWeek(weekStart){
+  const w = effectiveWeeks().find(x=>x.start===weekStart);
+  if(!w) return;
+  currentPlan = planFromScheduledWeek(w);
+  renderPlanForm();
+  document.getElementById('plannerLessonSearch').value = '';
+  closeSearchDropdown();
+}
+
+function startNewBlankPlan(){
+  currentPlan = blankPlan();
+  renderPlanForm();
+  document.getElementById('plannerFormArea').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ---- shared field markup + collection + persistence (used by both the
+   Lesson Planner tab's form and List View's inline editor) ---- */
+function planFormFieldsHtml(p, idPrefix){
+  return `
+      <div class="planGrid">
+        <div class="planCol">
+          <div class="planField"><span class="flabel">Unit / Module</span><input id="${idPrefix}UnitModule" type="text" value="${esc(p.unitModule)}" placeholder="e.g. Week 1 &middot; Letter A"></div>
+          <div class="planField"><span class="flabel">Lesson</span><input id="${idPrefix}Lesson" type="text" value="${esc(p.lesson)}" placeholder="Bible story / lesson title"></div>
+          <div class="planField tall"><span class="flabel">Objectives</span><textarea id="${idPrefix}Objectives" placeholder="What should the kids take away this week?">${esc(p.objectives)}</textarea></div>
+          <div class="outlineWrap">
+            <span class="flabel">Lesson Outline</span>
+            <table class="outlineTable"><tbody>
+              <tr><td class="olabel">Memory verse</td><td><input id="${idPrefix}MemoryVerse" type="text" value="${esc(p.memoryVerse)}"></td></tr>
+              <tr><td class="olabel">Bible song</td><td><input id="${idPrefix}BibleSong" type="text" value="${esc(p.bibleSong)}"></td></tr>
+              <tr><td class="olabel">Letter of the week</td><td><input id="${idPrefix}LetterWeek" type="text" value="${esc(p.letterWeek)}"></td></tr>
+              <tr><td class="olabel">Book of the week</td><td><input id="${idPrefix}BookWeek" type="text" value="${esc(p.bookWeek)}"></td></tr>
+              <tr><td class="olabel">Activity</td><td><input id="${idPrefix}Activity" type="text" value="${esc(p.activity)}"></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="planCol">
+          <div class="planField subjectField"><span class="flabel">Subject</span><input id="${idPrefix}Subject" type="text" value="${esc(p.subject)}" placeholder="e.g. Firefighters"></div>
+          <div class="planField tall"><span class="flabel">Topics</span><textarea id="${idPrefix}Topics" placeholder="Poems, numbers, misc. learning...">${esc(p.topics)}</textarea></div>
+          <div class="planField"><span class="flabel">Resources</span><textarea id="${idPrefix}Resources" placeholder="Book, materials...">${esc(p.resources)}</textarea></div>
+          <div class="planField"><span class="flabel">Homework <span style="font-weight:400;text-transform:none;letter-spacing:0;">(to have ready)</span></span><textarea id="${idPrefix}Homework" placeholder="What families should send or prep...">${esc(p.homework)}</textarea></div>
+          <div class="planField"><span class="flabel">Notes</span><textarea id="${idPrefix}NotesText" placeholder="Anything else to remember...">${esc(p.notes)}</textarea></div>
+          <div class="planField"><span class="flabel">Attach to date</span><input id="${idPrefix}AttachDate" type="date" value="${esc(p.attachDate)}"></div>
+        </div>
+      </div>`;
+}
+
+function collectFormValuesFromPrefix(idPrefix, linkedWeekStart){
+  const v = id => (document.getElementById(id)?.value || '').trim();
+  return {
+    subject: v(idPrefix+'Subject'), unitModule: v(idPrefix+'UnitModule'), lesson: v(idPrefix+'Lesson'),
+    objectives: v(idPrefix+'Objectives'), memoryVerse: v(idPrefix+'MemoryVerse'), bibleSong: v(idPrefix+'BibleSong'),
+    letterWeek: v(idPrefix+'LetterWeek'), bookWeek: v(idPrefix+'BookWeek'), activity: v(idPrefix+'Activity'),
+    topics: v(idPrefix+'Topics'), resources: v(idPrefix+'Resources'), homework: v(idPrefix+'Homework'), notes: v(idPrefix+'NotesText'),
+    linkedWeekStart
+  };
+}
+
+// One plan per calendar day: saving always keys the item by its attach date.
+// If a different plan already occupies that date, confirm before overwriting
+// rather than silently creating a duplicate.
+async function persistPlanFromForm(idPrefix, planStateRef){
+  const attachDate = document.getElementById(idPrefix+'AttachDate').value;
+  if(!attachDate){ alert('Please choose a date to attach this lesson plan to.'); return {ok:false}; }
+  const existingForDate = getLessonPlanByKey(attachDate);
+  if(existingForDate && existingForDate.id !== planStateRef.editingId){
+    if(!confirm('A lesson plan already exists for that date. Save anyway and overwrite it?')) return {ok:false};
+  }
+  const values = collectFormValuesFromPrefix(idPrefix, planStateRef.linkedWeekStart);
+  const targetId = planStateRef.editingId || (existingForDate ? existingForDate.id : null);
+  const payload = {start: attachDate, end: null, type:'lessonplan', title: attachDate, note: JSON.stringify(values)};
+  let online = true;
+  try{
+    if(targetId){
+      const updated = await apiUpdateItem(targetId, payload);
+      const idx = customEvents.findIndex(c=>c.id===targetId);
+      if(idx>-1) customEvents[idx]=updated; else customEvents.push(updated);
+    } else {
+      const created = await apiCreateItem(payload);
+      customEvents.push(created);
+    }
+    cacheLocally(); setOnlineStatus(true);
+  }catch(e){
+    online = false;
+    if(targetId){
+      const item = customEvents.find(c=>c.id===targetId);
+      if(item) Object.assign(item, payload);
+    } else {
+      const localItem = {id:uid(), ...payload, pendingSync:true};
+      customEvents.push(localItem);
+      planStateRef.editingId = localItem.id;
+    }
+    cacheLocally(); setOnlineStatus(false);
+  }
+  if(targetId) planStateRef.editingId = targetId;
+  planStateRef.attachDate = attachDate;
+  planStateRef.key = attachDate;
+  return {ok:true, online};
+}
+
+async function savePlanForm(){
+  if(!currentPlan) return;
+  const btn = document.getElementById('planSaveBtn');
+  const statusEl = document.getElementById('planFillStatus');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  const res = await persistPlanFromForm('plan', currentPlan);
+  btn.disabled = false; btn.textContent = 'Save Lesson Plan';
+  if(res.ok){
+    if(statusEl){ statusEl.textContent = res.online ? 'Saved' : 'Saved locally (offline)'; setTimeout(()=>{ if(statusEl) statusEl.textContent=''; }, 2500); }
+    renderSavedPlansList();
+    renderListView();
+  }
+}
+
+function renderPlanForm(){
+  const area = document.getElementById('plannerFormArea');
+  if(!currentPlan){
+    area.innerHTML = '<div class="plannerEmptyState">Search for a scheduled lesson above to prefill it, or click <b>+ New Lesson Plan</b> to start from scratch.</div>';
+    return;
+  }
+  const p = currentPlan;
+  const linkedTag = p.linkedWeekStart ? `<span class="planLinkTag">&#128279; Linked to scheduled week ${weekDateRange({start:p.linkedWeekStart,end:p.linkedWeekStart})}</span>` : `<span class="planLinkTag" style="color:var(--pine);opacity:.6;">Not linked to a scheduled week</span>`;
+  area.innerHTML = `
+    <div class="planSheet">
+      <div class="planHead">
+        <h4>Lesson Plan</h4>
+        ${linkedTag}
+      </div>
+      ${planFormFieldsHtml(p, 'plan')}
+      <div class="planFormActions">
+        <span class="fillStatus" id="planFillStatus"></span>
+        <button class="btn" id="planCancelBtn">Close</button>
+        <button class="btn primary" id="planSaveBtn">Save Lesson Plan</button>
+      </div>
+    </div>`;
+  document.getElementById('planSaveBtn').addEventListener('click', savePlanForm);
+  document.getElementById('planCancelBtn').addEventListener('click', ()=>{ currentPlan=null; renderPlanForm(); });
+}
+
+/* ---- List View inline lesson-plan editor ---- */
+let expandedPlanDate = null;
+let expandedPlanState = null;
+
+function toggleInlinePlan(date){
+  if(expandedPlanDate === date){
+    expandedPlanDate = null; expandedPlanState = null;
+  } else {
+    expandedPlanDate = date;
+    expandedPlanState = planStateForDate(date);
+  }
   renderListView();
+}
+
+function buildInlinePlanRow(date){
+  const wrap = document.createElement('div');
+  wrap.className = 'inlinePlanRow';
+  const p = expandedPlanState;
+  const linkedTag = p.linkedWeekStart ? `<span class="planLinkTag">&#128279; Linked to scheduled week</span>` : `<span class="planLinkTag" style="color:var(--pine);opacity:.6;">Not linked to a scheduled week</span>`;
+  wrap.innerHTML = `
+    <div class="planSheet">
+      <div class="planHead">
+        <h4>Lesson Plan</h4>
+        ${linkedTag}
+      </div>
+      ${planFormFieldsHtml(p, 'ip')}
+      <div class="planFormActions">
+        <span class="fillStatus" id="ipFillStatus"></span>
+        <button class="btn" id="ipCloseBtn">Close</button>
+        <button class="btn primary" id="ipSaveBtn">Save Lesson Plan</button>
+      </div>
+    </div>`;
+  wrap.querySelector('#ipSaveBtn').addEventListener('click', ()=>saveInlinePlan());
+  wrap.querySelector('#ipCloseBtn').addEventListener('click', ()=>{ expandedPlanDate=null; expandedPlanState=null; renderListView(); });
+  return wrap;
+}
+
+async function saveInlinePlan(){
+  if(!expandedPlanState) return;
+  const btn = document.getElementById('ipSaveBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  const res = await persistPlanFromForm('ip', expandedPlanState);
+  if(res.ok){
+    expandedPlanDate = expandedPlanState.attachDate;
+    renderSavedPlansList();
+    renderListView();
+  } else {
+    btn.disabled = false; btn.textContent = 'Save Lesson Plan';
+  }
+}
+
+/* ---------- Search / select a scheduled lesson ---------- */
+const plannerSearchInput = document.getElementById('plannerLessonSearch');
+const plannerSearchDropdown = document.getElementById('plannerSearchDropdown');
+function closeSearchDropdown(){ plannerSearchDropdown.classList.remove('open'); plannerSearchDropdown.innerHTML=''; }
+function scheduledWeekLabel(w){
+  const d = toDate(w.start);
+  return `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()} \u2014 ${w.theme} (Letter ${w.letter})`;
+}
+plannerSearchInput.addEventListener('input', ()=>{
+  const q = plannerSearchInput.value.trim().toLowerCase();
+  if(!q){ closeSearchDropdown(); return; }
+  const matches = effectiveWeeks().filter(w=>{
+    const ref = (w.ci!=null) ? curriculumSequence[w.ci] : null;
+    const haystack = [w.theme,w.story,w.trait,w.letter,w.book].concat(ref?[ref.verse,ref.song]:[]).join(' ').toLowerCase();
+    return haystack.includes(q);
+  }).slice(0,8);
+  if(!matches.length){
+    plannerSearchDropdown.innerHTML = '<div class="sdEmpty">No scheduled lesson matches. Use + New Lesson Plan to create one.</div>';
+  } else {
+    plannerSearchDropdown.innerHTML = matches.map(w=>`
+      <div class="sdItem" data-weekstart="${w.start}"><b>${esc(w.theme)}</b><small>${esc(scheduledWeekLabel(w))} \u00b7 ${esc(w.story)}</small></div>
+    `).join('');
+    plannerSearchDropdown.querySelectorAll('.sdItem').forEach(el=>{
+      el.addEventListener('click',()=>selectScheduledWeek(el.dataset.weekstart));
+    });
+  }
+  plannerSearchDropdown.classList.add('open');
 });
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('.searchWrap')) closeSearchDropdown();
+});
+document.getElementById('newLessonPlanBtn').addEventListener('click', startNewBlankPlan);
+
+function renderPlanner(){
+  renderSavedPlansList();
+  renderPlanForm();
+}
 
 renderCalendar();
 loadCustomEvents();
