@@ -6,7 +6,7 @@
 <title>4K Class Calendar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style> 
+<style>
   :root{
     --paper:#fffdf7;
     --pine:#3f6153;
@@ -381,11 +381,12 @@ function findCustom(dateStr){return customEvents.filter(c=>inRange(dateStr,c.sta
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 /* ---------- custom events (shared, via API) ---------- */
-// Same-origin call: works once deployed to Azure Static Web Apps, since the
-// linked Functions API is served under /api on the same domain — no CORS
-// setup needed. If you ever host the API elsewhere, change this to the
-// full API URL, e.g. 'https://your-api.azurewebsites.net'.
-const API_BASE = '';
+// The API runs as its own standalone Azure Function App (Static Web Apps'
+// Free tier doesn't support linking a "bring your own" backend, so this
+// calls it directly instead of through a same-origin /api proxy).
+// CORS must be enabled on the Function App for this site's domain(s) —
+// see Function App > API > CORS in the Azure Portal.
+const API_BASE = 'https://svbp-calendar-api-dkcbfgbgbxgrh4gh.eastus-01.azurewebsites.net';
 const OFFLINE_CACHE_KEY = 'svbp_custom_events_cache_v1';
 let customEvents = [];
 let apiOnline = true;
